@@ -1,6 +1,6 @@
 import 'package:eatpencil/utils/shared_preferences_with_json.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/utils/models/theme.dart';
+import 'package:eatpencil/models/theme.dart';
 import 'package:eatpencil/consts.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 

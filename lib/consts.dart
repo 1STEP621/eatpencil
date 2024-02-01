@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:eatpencil/utils/models/theme.dart';
+import 'package:eatpencil/models/theme.dart';
 
 final themes = {
   "Mi Astro Dark": MkTheme(
