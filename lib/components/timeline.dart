@@ -77,7 +77,7 @@ class NoteCard extends ConsumerWidget {
           children: [
             Text(note.user.name ?? "",
                 style: const TextStyle(fontWeight: FontWeight.bold)),
-            Mfm(mfmText: note?.text ?? ""),
+            Mfm(mfmText: note.text ?? ""),
           ],
         ),
       ),
