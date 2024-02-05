@@ -22,4 +22,3 @@ List<Misskey> servers(ref) {
     );
   }).toList();
 }
-
