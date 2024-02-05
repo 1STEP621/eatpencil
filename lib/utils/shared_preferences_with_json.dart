@@ -8,8 +8,8 @@ class JsonStore {
     prefs.setString(key, json.encode(value));
   }
 
-  static Future<Object?> load(String key) async {
+  static Future<T?> load<T>(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return json.decode(prefs.getString(key) ?? "null");
+    return json.decode(prefs.getString(key) ?? "null") as T?;
   }
 }

@@ -97,7 +97,7 @@ class AuthPageState extends ConsumerState<AuthPage> {
   }
 
   Future<void> finishAuth() async {
-    final content = ((await JsonStore.load("servers")) ?? []) as List<dynamic>;
+    final content = await JsonStore.load<List<dynamic>>("servers") ?? [];
     content.add({
       "host": host,
       "token": await MisskeyServer().checkMiAuthToken(host, session),
