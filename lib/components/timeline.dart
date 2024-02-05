@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mfm/mfm.dart';
 import 'package:misskey_dart/misskey_dart.dart';
-import 'package:eatpencil/providers.dart';
 
 class Timeline extends ConsumerStatefulWidget {
   final Misskey server;
