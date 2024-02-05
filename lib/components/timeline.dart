@@ -27,7 +27,7 @@ class TimelineState extends ConsumerState<Timeline> {
       onNoteReceived: (Note newNote) {
         setState(() {
           _notes.insert(0, newNote);
-          _listKey.currentState?.insertItem(0);
+          _listKey.currentState?.insertItem(0, duration: const Duration(milliseconds: 700));
           if (_notes.length > 50) {
             _notes.removeLast();
           }
@@ -48,7 +48,9 @@ class TimelineState extends ConsumerState<Timeline> {
         Animation<double> animation,
       ) {
         return SizeTransition(
-          sizeFactor: animation,
+          sizeFactor: CurveTween(
+            curve: const Cubic(0.23, 1, 0.32, 1),
+          ).animate(animation),
           child: NoteCard(
             note: _notes[index],
           ),

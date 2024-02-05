@@ -1,4 +1,4 @@
-import 'package:eatpencil/utils/shared_preferences_with_json.dart';
+import 'package:eatpencil/utils/json_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:eatpencil/models/theme.dart';
 import 'package:eatpencil/consts.dart';
@@ -12,7 +12,7 @@ MkTheme theme(ref) {
 }
 
 final serversProvider = FutureProvider((ref) async {
-  return (await JsonStore.load("servers"));
+  return (await SecureJsonStore.load("servers"));
 });
 List<Misskey> servers(ref) {
   return (ref.watch(serversProvider)?.value ?? []).map<Misskey>((e) {
