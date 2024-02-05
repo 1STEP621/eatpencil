@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mfm/mfm.dart';
+import 'package:eatpencil/components/note.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 
 class Timeline extends ConsumerStatefulWidget {
@@ -26,7 +26,8 @@ class TimelineState extends ConsumerState<Timeline> {
       onNoteReceived: (Note newNote) {
         setState(() {
           _notes.insert(0, newNote);
-          _listKey.currentState?.insertItem(0, duration: const Duration(milliseconds: 700));
+          _listKey.currentState
+              ?.insertItem(0, duration: const Duration(milliseconds: 700));
           if (_notes.length > 50) {
             _notes.removeLast();
           }
@@ -55,32 +56,6 @@ class TimelineState extends ConsumerState<Timeline> {
           ),
         );
       },
-    );
-  }
-}
-
-class NoteCard extends ConsumerWidget {
-  final Note note;
-
-  const NoteCard({
-    required this.note,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(note.user.name ?? "",
-                style: const TextStyle(fontWeight: FontWeight.bold)),
-            Mfm(mfmText: note.text ?? ""),
-          ],
-        ),
-      ),
     );
   }
 }
