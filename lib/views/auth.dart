@@ -1,5 +1,5 @@
-import 'package:eatpencil/components/panel.dart';
-import 'package:eatpencil/components/space.dart';
+import 'package:eatpencil/components/general/panel.dart';
+import 'package:eatpencil/components/general/space.dart';
 import 'package:eatpencil/utils/json_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

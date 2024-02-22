@@ -1,5 +1,5 @@
-import 'package:eatpencil/components/panel.dart';
-import 'package:eatpencil/components/space.dart';
+import 'package:eatpencil/components/general/panel.dart';
+import 'package:eatpencil/components/general/space.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

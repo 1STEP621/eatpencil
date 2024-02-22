@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/components/note.dart';
+import 'package:eatpencil/components/general/note.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 
 class Timeline extends ConsumerStatefulWidget {

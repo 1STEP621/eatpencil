@@ -1,4 +1,4 @@
-import 'package:eatpencil/components/space.dart';
+import 'package:eatpencil/components/general/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
