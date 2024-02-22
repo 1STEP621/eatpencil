@@ -14,7 +14,7 @@ final goRouter = GoRouter(
           key: state.pageKey,
           child: const HomePage(),
         );
-      }
+      },
     ),
     GoRoute(
         path: "/auth",
@@ -24,7 +24,6 @@ final goRouter = GoRouter(
             key: state.pageKey,
             child: const AuthPage(),
           );
-        }
-    ),
+        }),
   ],
 );

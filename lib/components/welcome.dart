@@ -13,7 +13,8 @@ class Welcome extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text("Eatpencilへようこそ",
+            const Text(
+              "Eatpencilへようこそ",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

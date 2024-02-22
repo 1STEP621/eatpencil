@@ -9,12 +9,12 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Eatpencil"),
-        ),
-        body: servers(ref).isEmpty
-            ? const Welcome()
-            : Timeline(server: servers(ref)[0]),
+      appBar: AppBar(
+        title: const Text("Eatpencil"),
+      ),
+      body: servers(ref).isEmpty
+          ? const Welcome()
+          : Timeline(server: servers(ref)[0]),
     );
   }
 }
