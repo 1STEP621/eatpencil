@@ -48,6 +48,7 @@ dependencies:
       url: https://github.com/shiosyakeyakini-info/misskey_dart.git
       ref: master
   flutter_secure_storage: ^9.0.0
+  tabler_icons_for_flutter: ^1.0.4
 
 dev_dependencies:
   flutter_test:
