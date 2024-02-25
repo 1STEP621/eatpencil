@@ -135,7 +135,9 @@ class NoteCard extends ConsumerWidget {
                                       Entry(
                                         title: "引用リノート",
                                         icon: TablerIcons.quote,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          // TODO: Quote
+                                        },
                                       ),
                                     ],
                                   );
