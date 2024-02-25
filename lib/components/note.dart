@@ -11,8 +11,8 @@ class NoteCard extends ConsumerWidget {
   final Note note;
 
   const NoteCard({
-    required this.note,
     super.key,
+    required this.note,
   });
 
   @override
