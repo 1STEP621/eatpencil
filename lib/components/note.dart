@@ -37,8 +37,8 @@ class NoteCard extends ConsumerWidget {
                     horizontal: VisualDensity.minimumDensity,
                     vertical: VisualDensity.minimumDensity,
                   ),
-                  padding: EdgeInsets.zero,
-                  color: theme(ref).fg,
+                  padding: const EdgeInsets.all(10),
+                  color: theme(ref).fgTransparent,
                 ),
                 const Space(width: 20),
                 IconButton(
@@ -49,8 +49,8 @@ class NoteCard extends ConsumerWidget {
                     horizontal: VisualDensity.minimumDensity,
                     vertical: VisualDensity.minimumDensity,
                   ),
-                  padding: EdgeInsets.zero,
-                  color: theme(ref).fg,
+                  padding: const EdgeInsets.all(10),
+                  color: theme(ref).fgTransparent,
                 ),
                 const Space(width: 20),
                 IconButton(
@@ -61,8 +61,8 @@ class NoteCard extends ConsumerWidget {
                     horizontal: VisualDensity.minimumDensity,
                     vertical: VisualDensity.minimumDensity,
                   ),
-                  padding: EdgeInsets.zero,
-                  color: theme(ref).fg,
+                  padding: const EdgeInsets.all(10),
+                  color: theme(ref).fgTransparent,
                 ),
                 const Space(width: 20),
                 IconButton(
@@ -73,11 +73,8 @@ class NoteCard extends ConsumerWidget {
                     horizontal: VisualDensity.minimumDensity,
                     vertical: VisualDensity.minimumDensity,
                   ),
-                  alignment: Alignment.center,
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(const CircleBorder()),
-                  ),
-                  color: theme(ref).fg,
+                  padding: const EdgeInsets.all(10),
+                  color: theme(ref).fgTransparent,
                 ),
               ],
             )
