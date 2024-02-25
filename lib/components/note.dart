@@ -18,7 +18,11 @@ class NoteCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isRenote = note.renote != null;
-    final isQuote = note.renote != null && (note.text != null || note.cw != null || note.files.isNotEmpty || note.poll != null);
+    final isQuote = isRenote &&
+        (note.text != null ||
+            note.cw != null ||
+            note.files.isNotEmpty ||
+            note.poll != null);
     final isPureRenote = isRenote && !isQuote;
     final isReply = note.reply != null;
 
@@ -31,25 +35,7 @@ class NoteCard extends ConsumerWidget {
             if (isPureRenote)
               Column(
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        TablerIcons.repeat,
-                        color: theme(ref).renote,
-                        size: 15,
-                      ),
-                      const Space(width: 5),
-                      Expanded(
-                        child: Text(
-                          "${note.user.name}がリノート",
-                          style: TextStyle(
-                            color: theme(ref).renote,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+                  RenoterIndicator(note: note),
                   const Space(height: 10),
                 ],
               ),
@@ -100,6 +86,37 @@ class NoteCard extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class RenoterIndicator extends ConsumerWidget {
+  final Note note;
+  const RenoterIndicator({
+    super.key,
+    required this.note,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Row(
+      children: [
+        Icon(
+          TablerIcons.repeat,
+          color: theme(ref).renote,
+          size: 15,
+        ),
+        const Space(width: 5),
+        Expanded(
+          child: Text(
+            "${note.user.name}がリノート",
+            style: TextStyle(
+              color: theme(ref).renote,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
