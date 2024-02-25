@@ -1,10 +1,10 @@
+import 'package:eatpencil/components/general/simple_icon_button.dart';
 import 'package:eatpencil/components/general/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:mfm/mfm.dart';
-import 'package:eatpencil/providers.dart';
 
 class NoteCard extends ConsumerWidget {
   final Note note;
@@ -29,52 +29,24 @@ class NoteCard extends ConsumerWidget {
             Mfm(mfmText: note.text ?? ""),
             Row(
               children: [
-                IconButton(
+                SimpleIconButton(
                   icon: const Icon(TablerIcons.arrow_back_up),
                   onPressed: () {},
-                  iconSize: 20,
-                  visualDensity: const VisualDensity(
-                    horizontal: VisualDensity.minimumDensity,
-                    vertical: VisualDensity.minimumDensity,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  color: theme(ref).fgTransparent,
                 ),
                 const Space(width: 20),
-                IconButton(
+                SimpleIconButton(
                   icon: const Icon(TablerIcons.repeat),
                   onPressed: () {},
-                  iconSize: 20,
-                  visualDensity: const VisualDensity(
-                    horizontal: VisualDensity.minimumDensity,
-                    vertical: VisualDensity.minimumDensity,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  color: theme(ref).fgTransparent,
                 ),
                 const Space(width: 20),
-                IconButton(
+                SimpleIconButton(
                   icon: const Icon(TablerIcons.plus),
                   onPressed: () {},
-                  iconSize: 20,
-                  visualDensity: const VisualDensity(
-                    horizontal: VisualDensity.minimumDensity,
-                    vertical: VisualDensity.minimumDensity,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  color: theme(ref).fgTransparent,
                 ),
                 const Space(width: 20),
-                IconButton(
+                SimpleIconButton(
                   icon: const Icon(TablerIcons.dots),
                   onPressed: () {},
-                  iconSize: 20,
-                  visualDensity: const VisualDensity(
-                    horizontal: VisualDensity.minimumDensity,
-                    vertical: VisualDensity.minimumDensity,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  color: theme(ref).fgTransparent,
                 ),
               ],
             )
