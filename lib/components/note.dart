@@ -71,6 +71,21 @@ class NoteCard extends ConsumerWidget {
                   depth: (depth ?? 0) + 1,
                 ),
               ),
+            GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 2,
+              mainAxisSpacing: 2,
+              childAspectRatio: 16 / 9,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                for (final file in (isPureRenote ? note.renote?.files ?? [] : note.files))
+                  Image.network(
+                    file.thumbnailUrl,
+                    fit: BoxFit.contain,
+                  ),
+              ],
+            ),
             if ((depth ?? 0) < 1)
               ReactionsViewer(
                 note: note,
