@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:mfm/mfm.dart';
-
 import '../providers.dart';
 
 class NoteCard extends ConsumerWidget {
@@ -18,14 +17,18 @@ class NoteCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appearNote = note.renote == null ? note : note.renote!;
+    final isRenote = note.renote != null;
+    final isQuote = note.renote != null && (note.text != null || note.cw != null || note.files.isNotEmpty || note.poll != null);
+    final isPureRenote = isRenote && !isQuote;
+    final isReply = note.reply != null;
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (note.renote != null)
+            if (isPureRenote)
               Column(
                 children: [
                   Row(
@@ -36,22 +39,41 @@ class NoteCard extends ConsumerWidget {
                         size: 15,
                       ),
                       const Space(width: 5),
-                      Text(
-                        "${note.user.name}がリノート",
-                        style: TextStyle(
-                          color: theme(ref).renote,
+                      Expanded(
+                        child: Text(
+                          "${note.user.name}がリノート",
+                          style: TextStyle(
+                            color: theme(ref).renote,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                   const Space(height: 10),
                 ],
               ),
             Text(
-              appearNote.user.name ?? "",
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              (isPureRenote ? note.renote!.user.name : note.user.name) ?? "",
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-            Mfm(mfmText: appearNote.text ?? ""),
+            Mfm(mfmText: isPureRenote ? note.renote!.text : note.text),
+            if (isQuote)
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: theme(ref).renote,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: NoteCard(
+                  note: note.renote!,
+                ),
+              ),
             Row(
               children: [
                 SimpleIconButton(
