@@ -3,6 +3,7 @@ import 'package:eatpencil/components/general/simple_icon_button.dart';
 import 'package:eatpencil/components/general/space.dart';
 import 'package:eatpencil/components/reactions_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:misskey_dart/misskey_dart.dart';
@@ -24,11 +25,7 @@ class NoteCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isRenote = note.renote != null;
-    final isQuote = isRenote &&
-        (note.text != null ||
-            note.cw != null ||
-            note.files.isNotEmpty ||
-            note.poll != null);
+    final isQuote = isRenote && (note.text != null || note.cw != null || note.files.isNotEmpty || note.poll != null);
     final isPureRenote = isRenote && !isQuote;
     final isReply = note.reply != null;
 
@@ -156,7 +153,40 @@ class NoteCard extends ConsumerWidget {
                         SimpleIconButton(
                           icon: const Icon(TablerIcons.dots),
                           onPressed: () {
-                            // TODO: Context menu
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return BottomSheetMenu(
+                                  entries: [
+                                    Entry(
+                                      title: "詳細",
+                                      icon: TablerIcons.info_circle,
+                                      onPressed: () {
+                                        // TODO: Detail
+                                      },
+                                    ),
+                                    Entry(
+                                      title: "内容をコピー",
+                                      icon: TablerIcons.copy,
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                          ClipboardData(text: note.text ?? ""),
+                                        );
+                                      },
+                                    ),
+                                    Entry(
+                                      title: "リンクをコピー",
+                                      icon: TablerIcons.link,
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                          ClipboardData(text: "https://${server.host}/notes/${note.id}"),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                         ),
                       ],
