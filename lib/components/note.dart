@@ -1,3 +1,4 @@
+import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/simple_icon_button.dart';
 import 'package:eatpencil/components/general/space.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,13 @@ import '../providers.dart';
 
 class NoteCard extends ConsumerWidget {
   final Note note;
+  final Misskey server;
   final int? depth;
 
   const NoteCard({
     super.key,
     required this.note,
+    required this.server,
     this.depth,
   });
 
@@ -61,6 +64,7 @@ class NoteCard extends ConsumerWidget {
                 ),
                 child: NoteCard(
                   note: note.renote!,
+                  server: server,
                   depth: (depth ?? 0) + 1,
                 ),
               ),
@@ -74,7 +78,35 @@ class NoteCard extends ConsumerWidget {
                   const Space(width: 20),
                   SimpleIconButton(
                     icon: const Icon(TablerIcons.repeat),
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return BottomSheetMenu(
+                            entries: [
+                              Entry(
+                                title: "リノート",
+                                icon: TablerIcons.repeat,
+                                onPressed: () {
+                                  server.notes.create(
+                                    NotesCreateRequest(
+                                      renoteId: isPureRenote
+                                          ? note.renote?.id
+                                          : note.id,
+                                    ),
+                                  );
+                                },
+                              ),
+                              Entry(
+                                title: "引用リノート",
+                                icon: TablerIcons.quote,
+                                onPressed: () {},
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                   ),
                   const Space(width: 20),
                   SimpleIconButton(

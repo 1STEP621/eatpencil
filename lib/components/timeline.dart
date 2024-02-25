@@ -63,6 +63,7 @@ class TimelineState extends ConsumerState<Timeline> {
           ).animate(animation),
           child: NoteCard(
             note: _notes[index],
+            server: widget.server,
           ),
         );
       },
