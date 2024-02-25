@@ -108,7 +108,9 @@ class NoteCard extends ConsumerWidget {
                         children: [
                           SimpleIconButton(
                             icon: const Icon(TablerIcons.arrow_back_up),
-                            onPressed: () {},
+                            onPressed: () {
+                              // TODO: Reply
+                            },
                           ),
                           const Space(width: 20),
                           SimpleIconButton(
@@ -144,12 +146,16 @@ class NoteCard extends ConsumerWidget {
                           const Space(width: 20),
                           SimpleIconButton(
                             icon: const Icon(TablerIcons.plus),
-                            onPressed: () {},
+                            onPressed: () {
+                              // TODO: Reaction
+                            },
                           ),
                           const Space(width: 20),
                           SimpleIconButton(
                             icon: const Icon(TablerIcons.dots),
-                            onPressed: () {},
+                            onPressed: () {
+                              // TODO: Context menu
+                            },
                           ),
                         ],
                       ),
