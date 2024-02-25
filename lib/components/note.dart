@@ -6,6 +6,8 @@ import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:mfm/mfm.dart';
 
+import '../providers.dart';
+
 class NoteCard extends ConsumerWidget {
   final Note note;
 
@@ -16,17 +18,40 @@ class NoteCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final appearNote = note.renote == null ? note : note.renote!;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (note.renote != null)
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        TablerIcons.repeat,
+                        color: theme(ref).renote,
+                        size: 15,
+                      ),
+                      const Space(width: 5),
+                      Text(
+                        "${note.user.name}がリノート",
+                        style: TextStyle(
+                          color: theme(ref).renote,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Space(height: 10),
+                ],
+              ),
             Text(
-              note.user.name ?? "",
+              appearNote.user.name ?? "",
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            Mfm(mfmText: note.text ?? ""),
+            Mfm(mfmText: appearNote.text ?? ""),
             Row(
               children: [
                 SimpleIconButton(
