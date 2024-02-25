@@ -23,7 +23,7 @@ class TimelineState extends ConsumerState<Timeline> {
     widget.server.notes.localTimeline(
       const NotesLocalTimelineRequest(limit: 50),
     ).then((initialNotes) {
-      setState(() => _notes.addAll(initialNotes));
+      _notes.addAll(initialNotes);
       _listKey.currentState?.insertAllItems(
         _notes.length - initialNotes.length,
         initialNotes.length,
@@ -35,9 +35,7 @@ class TimelineState extends ConsumerState<Timeline> {
     widget.server.localTimelineStream(
       parameter: const LocalTimelineParameter(),
       onNoteReceived: (Note newNote) {
-        setState(() {
-          _notes.insert(0, newNote);
-        });
+        _notes.insert(0, newNote);
         _listKey.currentState?.insertItem(
           0,
           duration: const Duration(milliseconds: 700),
