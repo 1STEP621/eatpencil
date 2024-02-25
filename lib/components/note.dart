@@ -34,125 +34,127 @@ class NoteCard extends ConsumerWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (isPureRenote)
-              Column(
-                children: [
-                  RenoterIndicator(note: note),
-                  const Space(height: 10),
-                ],
-              ),
-            Text(
-              (isPureRenote ? note.renote!.user.name : note.user.name) ?? "",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Mfm(
-              mfmText: isPureRenote ? note.renote?.text ?? "" : note.text ?? "",
-            ),
-            if (isQuote && (depth ?? 0) < 4)
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: theme(ref).renote,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: NoteCard(
-                  note: note.renote!,
-                  server: server,
-                  depth: (depth ?? 0) + 1,
-                ),
-              ),
-            GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 2,
-              mainAxisSpacing: 2,
-              childAspectRatio: 16 / 9,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                for (final file in (isPureRenote ? note.renote?.files ?? [] : note.files))
-                  Image.network(
-                    file.thumbnailUrl,
-                    fit: BoxFit.contain,
-                  ),
-              ],
-            ),
-            if ((depth ?? 0) < 1)
-              ReactionsViewer(
-                note: note,
-                onReactionTap: (reaction) {
-                  server.notes.reactions.create(
-                    NotesReactionsCreateRequest(
-                      noteId: note.id,
-                      reaction: reaction,
+          padding: const EdgeInsets.all(15),
+          child: isPureRenote
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RenoterIndicator(note: note),
+                    const Space(height: 10),
+                    NoteCard(
+                      note: note.renote!,
+                      server: server,
                     ),
-                  );
-                },
-              ),
-            if ((depth ?? 0) < 1)
-              Row(
-                children: [
-                  SimpleIconButton(
-                    icon: const Icon(TablerIcons.arrow_back_up),
-                    onPressed: () {},
-                  ),
-                  const Space(width: 20),
-                  SimpleIconButton(
-                    icon: const Icon(TablerIcons.repeat),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return BottomSheetMenu(
-                            entries: [
-                              Entry(
-                                title: "リノート",
-                                icon: TablerIcons.repeat,
-                                onPressed: () {
-                                  server.notes.create(
-                                    NotesCreateRequest(
-                                      renoteId: isPureRenote
-                                          ? note.renote?.id
-                                          : note.id,
-                                    ),
-                                  );
-                                },
-                              ),
-                              Entry(
-                                title: "引用リノート",
-                                icon: TablerIcons.quote,
-                                onPressed: () {},
-                              ),
-                            ],
+                  ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      note.user.name ?? "",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Mfm(
+                      mfmText: note.text ?? "",
+                    ),
+                    GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 2,
+                      childAspectRatio: 16 / 9,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        for (final file in note.files)
+                          Image.network(
+                            file.thumbnailUrl ?? file.url,
+                            fit: BoxFit.contain,
+                          ),
+                      ],
+                    ),
+                    if (isQuote && (depth ?? 0) < 4)
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: theme(ref).renote,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: NoteCard(
+                          note: note.renote!,
+                          server: server,
+                          depth: (depth ?? 0) + 1,
+                        ),
+                      ),
+                    if ((depth ?? 0) < 1)
+                      ReactionsViewer(
+                        note: note,
+                        onReactionTap: (reaction) {
+                          server.notes.reactions.create(
+                            NotesReactionsCreateRequest(
+                              noteId: note.id,
+                              reaction: reaction,
+                            ),
                           );
                         },
-                      );
-                    },
-                  ),
-                  const Space(width: 20),
-                  SimpleIconButton(
-                    icon: const Icon(TablerIcons.plus),
-                    onPressed: () {},
-                  ),
-                  const Space(width: 20),
-                  SimpleIconButton(
-                    icon: const Icon(TablerIcons.dots),
-                    onPressed: () {},
-                  ),
-                ],
-              )
-          ],
-        ),
-      ),
+                      ),
+                    if ((depth ?? 0) < 1)
+                      Row(
+                        children: [
+                          SimpleIconButton(
+                            icon: const Icon(TablerIcons.arrow_back_up),
+                            onPressed: () {},
+                          ),
+                          const Space(width: 20),
+                          SimpleIconButton(
+                            icon: const Icon(TablerIcons.repeat),
+                            onPressed: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return BottomSheetMenu(
+                                    entries: [
+                                      Entry(
+                                        title: "リノート",
+                                        icon: TablerIcons.repeat,
+                                        onPressed: () {
+                                          server.notes.create(
+                                            NotesCreateRequest(
+                                              renoteId: note.id,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      Entry(
+                                        title: "引用リノート",
+                                        icon: TablerIcons.quote,
+                                        onPressed: () {},
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          const Space(width: 20),
+                          SimpleIconButton(
+                            icon: const Icon(TablerIcons.plus),
+                            onPressed: () {},
+                          ),
+                          const Space(width: 20),
+                          SimpleIconButton(
+                            icon: const Icon(TablerIcons.dots),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                  ],
+                )),
     );
   }
 }
