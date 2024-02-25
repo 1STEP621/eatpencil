@@ -32,6 +32,9 @@ class BottomSheetMenu extends ConsumerWidget {
           for (final entry in entries)
             ListTile(
               title: Text(entry.title),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
               leading: Icon(
                 entry.icon,
                 color: theme(ref).fg,
