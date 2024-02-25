@@ -48,7 +48,7 @@ class NoteCard extends ConsumerWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Mfm(mfmText: isPureRenote ? note.renote!.text : note.text),
+            Mfm(mfmText: isPureRenote ? note.renote?.text ?? "" : note.text ?? ""),
             if (isQuote && (depth ?? 0) < 4)
               Container(
                 width: double.infinity,
