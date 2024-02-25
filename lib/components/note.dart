@@ -1,6 +1,7 @@
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/simple_icon_button.dart';
 import 'package:eatpencil/components/general/space.dart';
+import 'package:eatpencil/components/reactions_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
@@ -69,6 +70,18 @@ class NoteCard extends ConsumerWidget {
                   server: server,
                   depth: (depth ?? 0) + 1,
                 ),
+              ),
+            if ((depth ?? 0) < 1)
+              ReactionsViewer(
+                note: note,
+                onReactionTap: (reaction) {
+                  server.notes.reactions.create(
+                    NotesReactionsCreateRequest(
+                      noteId: note.id,
+                      reaction: reaction,
+                    ),
+                  );
+                },
               ),
             if ((depth ?? 0) < 1)
               Row(
