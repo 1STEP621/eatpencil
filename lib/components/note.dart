@@ -9,10 +9,12 @@ import '../providers.dart';
 
 class NoteCard extends ConsumerWidget {
   final Note note;
+  final int? depth;
 
   const NoteCard({
     super.key,
     required this.note,
+    this.depth,
   });
 
   @override
@@ -47,8 +49,9 @@ class NoteCard extends ConsumerWidget {
               ),
             ),
             Mfm(mfmText: isPureRenote ? note.renote!.text : note.text),
-            if (isQuote)
+            if (isQuote && (depth ?? 0) < 4)
               Container(
+                width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: theme(ref).renote,
@@ -58,31 +61,33 @@ class NoteCard extends ConsumerWidget {
                 ),
                 child: NoteCard(
                   note: note.renote!,
+                  depth: (depth ?? 0) + 1,
                 ),
               ),
-            Row(
-              children: [
-                SimpleIconButton(
-                  icon: const Icon(TablerIcons.arrow_back_up),
-                  onPressed: () {},
-                ),
-                const Space(width: 20),
-                SimpleIconButton(
-                  icon: const Icon(TablerIcons.repeat),
-                  onPressed: () {},
-                ),
-                const Space(width: 20),
-                SimpleIconButton(
-                  icon: const Icon(TablerIcons.plus),
-                  onPressed: () {},
-                ),
-                const Space(width: 20),
-                SimpleIconButton(
-                  icon: const Icon(TablerIcons.dots),
-                  onPressed: () {},
-                ),
-              ],
-            )
+            if ((depth ?? 0) < 1)
+              Row(
+                children: [
+                  SimpleIconButton(
+                    icon: const Icon(TablerIcons.arrow_back_up),
+                    onPressed: () {},
+                  ),
+                  const Space(width: 20),
+                  SimpleIconButton(
+                    icon: const Icon(TablerIcons.repeat),
+                    onPressed: () {},
+                  ),
+                  const Space(width: 20),
+                  SimpleIconButton(
+                    icon: const Icon(TablerIcons.plus),
+                    onPressed: () {},
+                  ),
+                  const Space(width: 20),
+                  SimpleIconButton(
+                    icon: const Icon(TablerIcons.dots),
+                    onPressed: () {},
+                  ),
+                ],
+              )
           ],
         ),
       ),
