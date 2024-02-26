@@ -36,7 +36,25 @@ class NoteCard extends ConsumerWidget {
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RenoterIndicator(note: note),
+                  Row(
+                    children: [
+                      Icon(
+                        TablerIcons.repeat,
+                        color: theme(ref).renote,
+                        size: 15,
+                      ),
+                      const Space(width: 5),
+                      Expanded(
+                        child: Text(
+                          "${note.user.name}がリノート",
+                          style: TextStyle(
+                            color: theme(ref).renote,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                   const Space(height: 10),
                   NoteCard(
                     note: note.renote!,
@@ -198,33 +216,3 @@ class NoteCard extends ConsumerWidget {
   }
 }
 
-class RenoterIndicator extends ConsumerWidget {
-  final Note note;
-  const RenoterIndicator({
-    super.key,
-    required this.note,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Row(
-      children: [
-        Icon(
-          TablerIcons.repeat,
-          color: theme(ref).renote,
-          size: 15,
-        ),
-        const Space(width: 5),
-        Expanded(
-          child: Text(
-            "${note.user.name}がリノート",
-            style: TextStyle(
-              color: theme(ref).renote,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        )
-      ],
-    );
-  }
-}
