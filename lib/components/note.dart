@@ -5,6 +5,8 @@ import 'package:eatpencil/components/reactions_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:media_kit/media_kit.dart';
+import 'package:media_kit_video/media_kit_video.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:mfm/mfm.dart';
@@ -28,6 +30,13 @@ class NoteCard extends ConsumerWidget {
     final isQuote = isRenote && (note.text != null || note.cw != null || note.files.isNotEmpty || note.poll != null);
     final isPureRenote = isRenote && !isQuote;
     final isReply = note.reply != null;
+
+    final imageFiles = note.files.where((file) => file.type.contains("image"));
+    final videoFiles = note.files.where((file) => file.type.contains("video"));
+    final audioFiles = note.files.where((file) => file.type.contains("audio"));
+    final otherFiles = note.files.where(
+      (file) => !imageFiles.contains(file) && !videoFiles.contains(file) && !audioFiles.contains(file),
+    );
 
     return Card(
       child: Padding(
@@ -83,10 +92,13 @@ class NoteCard extends ConsumerWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      for (final file in note.files)
+                      for (final file in imageFiles)
                         Image.network(
                           file.thumbnailUrl ?? file.url,
-                          fit: BoxFit.contain,
+                        ),
+                      for (final file in videoFiles)
+                        Video(
+                          controller: VideoController(Player()..open(Media(file.url))),
                         ),
                     ],
                   ),
@@ -215,4 +227,3 @@ class NoteCard extends ConsumerWidget {
     );
   }
 }
-
