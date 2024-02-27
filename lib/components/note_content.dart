@@ -2,7 +2,7 @@ import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/simple_icon_button.dart';
 import 'package:eatpencil/components/general/space.dart';
 import 'package:eatpencil/components/reactions_viewer.dart';
-import 'package:eatpencil/components/video_player.dart';
+import 'package:eatpencil/components/general/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
