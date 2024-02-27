@@ -77,8 +77,10 @@ class NoteContent extends ConsumerWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Mfm(
-                mfmText: note.text ?? "",
+              SelectionArea(
+                child: Mfm(
+                  mfmText: note.text ?? "",
+                ),
               ),
               GridView.count(
                 crossAxisCount: 2,
