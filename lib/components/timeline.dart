@@ -17,6 +17,7 @@ class Timeline extends ConsumerStatefulWidget {
 class TimelineState extends ConsumerState<Timeline> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   final List<Note> _notes = [];
+  bool _isFetching = true;
 
   @override
   void initState() {
@@ -29,6 +30,9 @@ class TimelineState extends ConsumerState<Timeline> {
         initialNotes.length,
         duration: const Duration(milliseconds: 700),
       );
+      setState(() {
+        _isFetching = false;
+      });
     });
 
     widget.server.streamingService.startStreaming();
@@ -47,24 +51,32 @@ class TimelineState extends ConsumerState<Timeline> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedList(
-      key: _listKey,
-      initialItemCount: _notes.length,
-      itemBuilder: (
-        BuildContext context,
-        int index,
-        Animation<double> animation,
-      ) {
-        return SizeTransition(
-          sizeFactor: CurveTween(
-            curve: const Cubic(0.23, 1, 0.32, 1),
-          ).animate(animation),
-          child: NoteCard(
-            note: _notes[index],
-            server: widget.server,
+    return Column(
+      children: [
+        if (_isFetching)
+          const CircularProgressIndicator(),
+        Expanded(
+          child: AnimatedList(
+            key: _listKey,
+            initialItemCount: _notes.length,
+            itemBuilder: (
+              BuildContext context,
+              int index,
+              Animation<double> animation,
+            ) {
+              return SizeTransition(
+                sizeFactor: CurveTween(
+                  curve: const Cubic(0.23, 1, 0.32, 1),
+                ).animate(animation),
+                child: NoteCard(
+                  note: _notes[index],
+                  server: widget.server,
+                ),
+              );
+            },
           ),
-        );
-      },
+        ),
+      ],
     );
   }
 }
