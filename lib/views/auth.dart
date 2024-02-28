@@ -1,5 +1,6 @@
+import 'package:eatpencil/components/general/column_with_gap.dart';
 import 'package:eatpencil/components/general/panel.dart';
-import 'package:eatpencil/components/general/space.dart';
+import 'package:eatpencil/components/general/row_with_gap.dart';
 import 'package:eatpencil/utils/json_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,9 +35,10 @@ class AuthPageState extends ConsumerState<AuthPage> {
         child: Panel(
           child: SizedBox(
             width: RatioSizing.ratioW(context, 0.7),
-            child: Column(
+            child: ColumnWithGap(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
+              gap: 20,
               children: [
                 TextField(
                   onChanged: (value) {
@@ -49,11 +51,9 @@ class AuthPageState extends ConsumerState<AuthPage> {
                     ),
                   ),
                 ),
-                const Space(
-                  height: 20,
-                ),
-                Row(
+                RowWithGap(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  gap: 5,
                   children: [
                     ElevatedButton(
                       onPressed: () {
@@ -61,17 +61,13 @@ class AuthPageState extends ConsumerState<AuthPage> {
                       },
                       child: Text(isUrlLaunched ? "もう一回！" : "認証する！"),
                     ),
-                    if (isUrlLaunched) ...[
-                      const Space(
-                        width: 5,
-                      ),
+                    if (isUrlLaunched)
                       ElevatedButton(
                         onPressed: () {
                           finishAuth();
                         },
                         child: const Text("認証してきた"),
                       ),
-                    ]
                   ],
                 )
               ],
