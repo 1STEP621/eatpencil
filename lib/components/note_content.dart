@@ -1,7 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
+import 'package:eatpencil/components/general/column_with_gap.dart';
+import 'package:eatpencil/components/general/row_with_gap.dart';
 import 'package:eatpencil/components/general/simple_icon_button.dart';
-import 'package:eatpencil/components/general/space.dart';
 import 'package:eatpencil/components/reactions_viewer.dart';
 import 'package:eatpencil/components/general/video_player.dart';
 import 'package:flutter/material.dart';
@@ -39,17 +40,18 @@ class NoteContent extends ConsumerWidget {
     );
 
     return isPureRenote
-        ? Column(
+        ? ColumnWithGap(
             crossAxisAlignment: CrossAxisAlignment.start,
+            gap: 10,
             children: [
-              Row(
+              RowWithGap(
+                gap: 5,
                 children: [
                   Icon(
                     TablerIcons.repeat,
                     color: theme(ref).renote,
                     size: 15,
                   ),
-                  const Space(width: 5),
                   Expanded(
                     child: Text(
                       "${note.user.name}がリノート",
@@ -61,15 +63,15 @@ class NoteContent extends ConsumerWidget {
                   )
                 ],
               ),
-              const Space(height: 10),
               NoteContent(
                 note: note.renote!,
                 server: server,
               ),
             ],
           )
-        : Column(
+        : ColumnWithGap(
             crossAxisAlignment: CrossAxisAlignment.start,
+            gap: 5,
             children: [
               Text(
                 note.user.name ?? "",
@@ -83,24 +85,25 @@ class NoteContent extends ConsumerWidget {
                   mfmText: note.text ?? "",
                 ),
               ),
-              GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 2,
-                mainAxisSpacing: 2,
-                childAspectRatio: 16 / 9,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  for (final file in imageFiles)
-                    Image.network(
-                      file.thumbnailUrl ?? file.url,
-                    ),
-                  for (final file in videoFiles)
-                    VideoPlayer(
-                      url: file.url,
-                    ),
-                ],
-              ),
+              if (0 < imageFiles.length + videoFiles.length)
+                GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 2,
+                  childAspectRatio: 16 / 9,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    for (final file in imageFiles)
+                      Image.network(
+                        file.thumbnailUrl ?? file.url,
+                      ),
+                    for (final file in videoFiles)
+                      VideoPlayer(
+                        url: file.url,
+                      ),
+                  ],
+                ),
               if (isQuote && (depth ?? 0) < 4)
                 DottedBorder(
                   borderType: BorderType.RRect,
@@ -118,7 +121,7 @@ class NoteContent extends ConsumerWidget {
                     ),
                   ),
                 ),
-              if ((depth ?? 0) < 1)
+              if ((depth ?? 0) < 1 && note.reactions.isNotEmpty)
                 ReactionsViewer(
                   note: note,
                   onReactionTap: (reaction) {
@@ -131,7 +134,8 @@ class NoteContent extends ConsumerWidget {
                   },
                 ),
               if ((depth ?? 0) < 1)
-                Row(
+                RowWithGap(
+                  gap: 20,
                   children: [
                     SimpleIconButton(
                       icon: const Icon(TablerIcons.arrow_back_up),
@@ -139,7 +143,6 @@ class NoteContent extends ConsumerWidget {
                         // TODO: Reply
                       },
                     ),
-                    const Space(width: 20),
                     SimpleIconButton(
                       icon: const Icon(TablerIcons.repeat),
                       onPressed: () {
@@ -172,14 +175,12 @@ class NoteContent extends ConsumerWidget {
                         );
                       },
                     ),
-                    const Space(width: 20),
                     SimpleIconButton(
                       icon: const Icon(TablerIcons.plus),
                       onPressed: () {
                         // TODO: Reaction
                       },
                     ),
-                    const Space(width: 20),
                     SimpleIconButton(
                       icon: const Icon(TablerIcons.dots),
                       onPressed: () {
