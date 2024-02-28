@@ -154,7 +154,7 @@ packages:
     source: hosted
     version: "5.4.1"
   dotted_border:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: dotted_border
       sha256: "108837e11848ca776c53b30bc870086f84b62ed6e01c503ed976e8f8c7df9c04"

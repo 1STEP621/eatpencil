@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/simple_icon_button.dart';
 import 'package:eatpencil/components/general/space.dart';
@@ -101,20 +102,20 @@ class NoteContent extends ConsumerWidget {
                 ],
               ),
               if (isQuote && (depth ?? 0) < 4)
-                Container(
-                  width: double.infinity,
+                DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: const Radius.circular(10),
                   padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: theme(ref).renote,
-                      width: 1,
+                  dashPattern: const [4, 4],
+                  strokeWidth: 1,
+                  color: theme(ref).renote,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    child: NoteContent(
+                      note: note.renote!,
+                      server: server,
+                      depth: (depth ?? 0) + 1,
                     ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: NoteContent(
-                    note: note.renote!,
-                    server: server,
-                    depth: (depth ?? 0) + 1,
                   ),
                 ),
               if ((depth ?? 0) < 1)
