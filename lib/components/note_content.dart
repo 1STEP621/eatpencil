@@ -105,19 +105,22 @@ class NoteContent extends ConsumerWidget {
                   ],
                 ),
               if (isQuote && (depth ?? 0) < 4)
-                DottedBorder(
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(10),
-                  padding: const EdgeInsets.all(15),
-                  dashPattern: const [4, 4],
-                  strokeWidth: 1,
-                  color: theme(ref).renote,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: NoteContent(
-                      note: note.renote!,
-                      server: server,
-                      depth: (depth ?? 0) + 1,
+                SizedBox(
+                  width: double.infinity,
+                  child: DottedBorder(
+                    borderType: BorderType.RRect,
+                    radius: const Radius.circular(10),
+                    padding: const EdgeInsets.all(15),
+                    dashPattern: const [4, 4],
+                    strokeWidth: 1,
+                    color: theme(ref).renote,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      child: NoteContent(
+                        note: note.renote!,
+                        server: server,
+                        depth: (depth ?? 0) + 1,
+                      ),
                     ),
                   ),
                 ),
