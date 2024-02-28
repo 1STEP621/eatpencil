@@ -12,9 +12,10 @@ class HomePage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("Eatpencil"),
       ),
-      body: servers(ref).isEmpty
-          ? const Welcome()
-          : Timeline(server: servers(ref)[0]),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: servers(ref).isEmpty ? const Welcome() : Timeline(server: servers(ref)[0]),
+      ),
     );
   }
 }
