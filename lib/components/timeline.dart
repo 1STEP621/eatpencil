@@ -22,9 +22,11 @@ class TimelineState extends ConsumerState<Timeline> {
 
   @override
   void initState() {
-    widget.server.notes.localTimeline(
+    widget.server.notes
+        .localTimeline(
       const NotesLocalTimelineRequest(limit: 50),
-    ).then((initialNotes) {
+    )
+        .then((initialNotes) {
       _notes.addAll(initialNotes);
       _listKey.currentState?.insertAllItems(
         _notes.length - initialNotes.length,
@@ -54,14 +56,11 @@ class TimelineState extends ConsumerState<Timeline> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (_isFetching)
-          const Column(
-            children: [
-              Gap(10),
-              CircularProgressIndicator(),
-              Gap(10),
-            ],
-          ),
+        if (_isFetching) ...[
+          const Gap(10),
+          const CircularProgressIndicator(),
+          const Gap(10),
+        ],
         Expanded(
           child: AnimatedList(
             key: _listKey,
