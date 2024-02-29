@@ -57,6 +57,7 @@ dependencies:
   media_kit_libs_video: ^1.0.4
   dotted_border: ^2.1.0
   intersperse: ^2.0.0
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_test:

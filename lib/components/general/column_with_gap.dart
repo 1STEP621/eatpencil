@@ -1,5 +1,5 @@
-import 'package:eatpencil/components/general/space.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:intersperse/intersperse.dart';
 
 class ColumnWithGap extends Column {
@@ -13,5 +13,5 @@ class ColumnWithGap extends Column {
     super.textDirection,
     super.verticalDirection,
     required double gap,
-  }) : super(children: children.intersperse(Space(height: gap)).toList());
+  }) : super(children: children.intersperse(Gap(gap)).toList());
 }

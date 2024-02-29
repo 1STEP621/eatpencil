@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:eatpencil/components/note.dart';
+import 'package:gap/gap.dart';
 import 'package:misskey_dart/misskey_dart.dart';
-import 'general/space.dart';
 
 class Timeline extends ConsumerStatefulWidget {
   final Misskey server;
@@ -57,9 +57,9 @@ class TimelineState extends ConsumerState<Timeline> {
         if (_isFetching)
           const Column(
             children: [
-              Space(height: 10),
+              Gap(10),
               CircularProgressIndicator(),
-              Space(height: 10),
+              Gap(10),
             ],
           ),
         Expanded(

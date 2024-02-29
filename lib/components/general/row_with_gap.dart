@@ -1,5 +1,5 @@
-import 'package:eatpencil/components/general/space.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:intersperse/intersperse.dart';
 
 class RowWithGap extends Row {
@@ -13,5 +13,5 @@ class RowWithGap extends Row {
     super.textDirection,
     super.verticalDirection,
     required double gap,
-  }) : super(children: children.intersperse(Space(width: gap)).toList());
+  }) : super(children: children.intersperse(Gap(gap)).toList());
 }
