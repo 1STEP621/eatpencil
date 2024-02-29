@@ -71,7 +71,7 @@ class NoteContent extends ConsumerWidget {
           )
         : ColumnWithGap(
             crossAxisAlignment: CrossAxisAlignment.start,
-            gap: 5,
+            gap: 2.5,
             children: [
               Text(
                 note.user.name ?? "",
