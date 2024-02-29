@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/column_with_gap.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
@@ -38,6 +39,7 @@ class NoteContent extends ConsumerWidget {
     final otherFiles = note.files.where(
       (file) => !imageFiles.contains(file) && !videoFiles.contains(file) && !audioFiles.contains(file),
     );
+    timeago.setLocaleMessages('ja', timeago.JaMessages());
 
     return isPureRenote
         ? ColumnWithGap(
@@ -73,12 +75,23 @@ class NoteContent extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             gap: 2.5,
             children: [
-              Text(
-                note.user.name ?? "",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  overflow: TextOverflow.ellipsis,
-                ),
+              RowWithGap(
+                gap: 5,
+                children: [
+                  Expanded(
+                    child: Text(
+                      note.user.name ?? "",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    timeago.format(note.createdAt.toLocal(), locale: 'ja'),
+                    textAlign: TextAlign.right,
+                  ),
+                ],
               ),
               SelectionArea(
                 child: Mfm(

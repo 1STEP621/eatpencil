@@ -58,6 +58,7 @@ dependencies:
   dotted_border: ^2.1.0
   intersperse: ^2.0.0
   gap: ^3.0.1
+  timeago: ^3.6.1
 
 dev_dependencies:
   flutter_test:
