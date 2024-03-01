@@ -1,8 +1,8 @@
 # Eatpencil
-
-A fully customizable Misskey client.✏️
-**THIS PROJECT IS UNDER DEVELOPMENT.**
-
+  
+A fully customizable Misskey client.✏️  
+**THIS PROJECT IS UNDER DEVELOPMENT.**  
+  
 ## Features(planned)
 - [ ] official client-like UI
 - [ ] multi-account support
