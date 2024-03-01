@@ -71,173 +71,189 @@ class NoteContent extends ConsumerWidget {
               ),
             ],
           )
-        : ColumnWithGap(
+        : RowWithGap(
+            gap: 10,
             crossAxisAlignment: CrossAxisAlignment.start,
-            gap: 2.5,
             children: [
-              RowWithGap(
-                gap: 5,
-                children: [
-                  Expanded(
-                    child: Text(
-                      note.user.name ?? "",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    timeago.format(note.createdAt.toLocal(), locale: 'ja'),
-                    textAlign: TextAlign.right,
-                  ),
-                ],
-              ),
-              SelectionArea(
-                child: Mfm(
-                  mfmText: note.text ?? "",
+              ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(999999)),
+                child: Image.network(
+                  note.user.avatarUrl.toString(),
+                  width: 43,
+                  height: 43,
                 ),
               ),
-              if (0 < imageFiles.length + videoFiles.length)
-                GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 2,
-                  mainAxisSpacing: 2,
-                  childAspectRatio: 16 / 9,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+              Expanded(
+                child: ColumnWithGap(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  gap: 2.5,
                   children: [
-                    for (final file in imageFiles)
-                      Image.network(
-                        file.thumbnailUrl ?? file.url,
-                      ),
-                    for (final file in videoFiles)
-                      VideoPlayer(
-                        url: file.url,
-                      ),
-                  ],
-                ),
-              if (isQuote && (depth ?? 0) < 4)
-                SizedBox(
-                  width: double.infinity,
-                  child: DottedBorder(
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(10),
-                    padding: const EdgeInsets.all(15),
-                    dashPattern: const [4, 4],
-                    strokeWidth: 1,
-                    color: theme(ref).renote,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      child: NoteContent(
-                        note: note.renote!,
-                        server: server,
-                        depth: (depth ?? 0) + 1,
+                    RowWithGap(
+                      gap: 5,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            note.user.name ?? "",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          timeago.format(note.createdAt.toLocal(), locale: 'ja'),
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
+                    ),
+                    SelectionArea(
+                      child: Mfm(
+                        mfmText: note.text ?? "",
                       ),
                     ),
-                  ),
-                ),
-              if ((depth ?? 0) < 1 && note.reactions.isNotEmpty)
-                ReactionsViewer(
-                  note: note,
-                  onReactionTap: (reaction) {
-                    server.notes.reactions.create(
-                      NotesReactionsCreateRequest(
-                        noteId: note.id,
-                        reaction: reaction,
+                    if (0 < imageFiles.length + videoFiles.length)
+                      GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 2,
+                        childAspectRatio: 16 / 9,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          for (final file in imageFiles)
+                            Image.network(
+                              file.thumbnailUrl ?? file.url,
+                            ),
+                          for (final file in videoFiles)
+                            VideoPlayer(
+                              url: file.url,
+                            ),
+                        ],
                       ),
-                    );
-                  },
-                ),
-              if ((depth ?? 0) < 1)
-                RowWithGap(
-                  gap: 20,
-                  children: [
-                    SimpleIconButton(
-                      icon: const Icon(TablerIcons.arrow_back_up),
-                      onPressed: () {
-                        // TODO: Reply
-                      },
-                    ),
-                    SimpleIconButton(
-                      icon: const Icon(TablerIcons.repeat),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return BottomSheetMenu(
-                              entries: [
-                                Entry(
-                                  title: "リノート",
-                                  icon: TablerIcons.repeat,
-                                  onPressed: () {
-                                    server.notes.create(
-                                      NotesCreateRequest(
-                                        renoteId: note.id,
+                    if (isQuote && (depth ?? 0) < 4)
+                      SizedBox(
+                        width: double.infinity,
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: const Radius.circular(10),
+                          padding: const EdgeInsets.all(15),
+                          dashPattern: const [4, 4],
+                          strokeWidth: 1,
+                          color: theme(ref).renote,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                            child: NoteContent(
+                              note: note.renote!,
+                              server: server,
+                              depth: (depth ?? 0) + 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    if ((depth ?? 0) < 1 && note.reactions.isNotEmpty)
+                      ReactionsViewer(
+                        note: note,
+                        onReactionTap: (reaction) {
+                          server.notes.reactions.create(
+                            NotesReactionsCreateRequest(
+                              noteId: note.id,
+                              reaction: reaction,
+                            ),
+                          );
+                        },
+                      ),
+                    if ((depth ?? 0) < 1)
+                      RowWithGap(
+                        gap: 20,
+                        children: [
+                          SimpleIconButton(
+                            icon: const Icon(TablerIcons.arrow_back_up),
+                            onPressed: () {
+                              // TODO: Reply
+                            },
+                          ),
+                          SimpleIconButton(
+                            icon: const Icon(TablerIcons.repeat),
+                            onPressed: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return BottomSheetMenu(
+                                    entries: [
+                                      Entry(
+                                        title: "リノート",
+                                        icon: TablerIcons.repeat,
+                                        onPressed: () {
+                                          server.notes.create(
+                                            NotesCreateRequest(
+                                              renoteId: note.id,
+                                            ),
+                                          );
+                                        },
                                       ),
-                                    );
-                                  },
-                                ),
-                                Entry(
-                                  title: "引用リノート",
-                                  icon: TablerIcons.quote,
-                                  onPressed: () {
-                                    // TODO: Quote
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    SimpleIconButton(
-                      icon: const Icon(TablerIcons.plus),
-                      onPressed: () {
-                        // TODO: Reaction
-                      },
-                    ),
-                    SimpleIconButton(
-                      icon: const Icon(TablerIcons.dots),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return BottomSheetMenu(
-                              entries: [
-                                Entry(
-                                  title: "詳細",
-                                  icon: TablerIcons.info_circle,
-                                  onPressed: () {
-                                    // TODO: Detail
-                                  },
-                                ),
-                                Entry(
-                                  title: "内容をコピー",
-                                  icon: TablerIcons.copy,
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                      ClipboardData(text: note.text ?? ""),
-                                    );
-                                  },
-                                ),
-                                Entry(
-                                  title: "リンクをコピー",
-                                  icon: TablerIcons.link,
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                      ClipboardData(text: "https://${server.host}/notes/${note.id}"),
-                                    );
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    ),
+                                      Entry(
+                                        title: "引用リノート",
+                                        icon: TablerIcons.quote,
+                                        onPressed: () {
+                                          // TODO: Quote
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          SimpleIconButton(
+                            icon: const Icon(TablerIcons.plus),
+                            onPressed: () {
+                              // TODO: Reaction
+                            },
+                          ),
+                          SimpleIconButton(
+                            icon: const Icon(TablerIcons.dots),
+                            onPressed: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return BottomSheetMenu(
+                                    entries: [
+                                      Entry(
+                                        title: "詳細",
+                                        icon: TablerIcons.info_circle,
+                                        onPressed: () {
+                                          // TODO: Detail
+                                        },
+                                      ),
+                                      Entry(
+                                        title: "内容をコピー",
+                                        icon: TablerIcons.copy,
+                                        onPressed: () {
+                                          Clipboard.setData(
+                                            ClipboardData(text: note.text ?? ""),
+                                          );
+                                        },
+                                      ),
+                                      Entry(
+                                        title: "リンクをコピー",
+                                        icon: TablerIcons.link,
+                                        onPressed: () {
+                                          Clipboard.setData(
+                                            ClipboardData(text: "https://${server.host}/notes/${note.id}"),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                   ],
                 ),
+              )
             ],
           );
   }
