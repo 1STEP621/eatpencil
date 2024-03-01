@@ -141,12 +141,6 @@ class NoteContent extends ConsumerWidget {
                               timeago.format(note.createdAt.toLocal(), locale: 'ja'),
                               textAlign: TextAlign.right,
                             ),
-                            if (note.localOnly)
-                              Icon(
-                                TablerIcons.rocket_off,
-                                color: theme(ref).fg,
-                                size: 15,
-                              ),
                             if (note.visibility == NoteVisibility.home)
                               Icon(
                                 TablerIcons.home,
