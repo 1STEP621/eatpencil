@@ -17,7 +17,7 @@ class SimpleIconButton extends ConsumerWidget {
     return IconButton(
       icon: icon,
       onPressed: onPressed,
-      iconSize: 20,
+      iconSize: 17.5,
       visualDensity: const VisualDensity(
         horizontal: VisualDensity.minimumDensity,
         vertical: VisualDensity.minimumDensity,

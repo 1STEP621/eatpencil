@@ -77,15 +77,16 @@ class NoteContent extends ConsumerWidget {
             gap: 10,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipOval(
-                child: ImageWithBlurHash(
-                  imageUrl: note.user.avatarUrl.toString(),
-                  blurHash: note.user.avatarBlurhash,
-                  fit: BoxFit.cover,
-                  width: 45,
-                  height: 45,
+              if ((depth ?? 0) < 2)
+                ClipOval(
+                  child: ImageWithBlurHash(
+                    imageUrl: note.user.avatarUrl.toString(),
+                    blurHash: note.user.avatarBlurhash,
+                    fit: BoxFit.cover,
+                    width: 45,
+                    height: 45,
+                  ),
                 ),
-              ),
               Expanded(
                 child: ColumnWithGap(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,7 +169,7 @@ class NoteContent extends ConsumerWidget {
                       ),
                     if ((depth ?? 0) < 1)
                       RowWithGap(
-                        gap: 20,
+                        gap: 12.5,
                         children: [
                           SimpleIconButton(
                             icon: const Icon(TablerIcons.arrow_back_up),
