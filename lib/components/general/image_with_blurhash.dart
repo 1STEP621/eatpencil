@@ -17,7 +17,7 @@ class ImageWithBlurHash extends CachedNetworkImage {
     super.fadeInCurve,
     super.width,
     super.height,
-    BoxFit fit = BoxFit.fill,
+    super.fit,
     super.alignment,
     super.repeat,
     super.matchTextDirection,
@@ -26,7 +26,7 @@ class ImageWithBlurHash extends CachedNetworkImage {
     super.color,
     super.filterQuality,
     super.colorBlendMode,
-    super.placeholderFadeInDuration,
+    super.placeholderFadeInDuration = Duration.zero,
     super.memCacheWidth,
     super.memCacheHeight,
     super.cacheKey,
@@ -35,11 +35,10 @@ class ImageWithBlurHash extends CachedNetworkImage {
     super.errorListener,
     super.imageRenderMethodForWeb,
   }) : super(
-          fit: fit,
           placeholder: (context, url) => BlurHash(
             hash: blurHash ?? "",
-            imageFit: fit,
-            duration: Duration.zero,
+            imageFit: fit ?? BoxFit.fill,
+            duration: fadeInDuration,
           ),
         );
 }
