@@ -201,7 +201,7 @@ class NoteContent extends ConsumerWidget {
                           borderType: BorderType.RRect,
                           radius: const Radius.circular(10),
                           padding: const EdgeInsets.all(15),
-                          dashPattern: const [4, 4],
+                          dashPattern: const [2, 2],
                           strokeWidth: 1,
                           color: theme(ref).renote,
                           child: ClipRRect(
