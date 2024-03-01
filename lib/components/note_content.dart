@@ -1,4 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/column_with_gap.dart';
@@ -75,12 +77,12 @@ class NoteContent extends ConsumerWidget {
             gap: 10,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(999999)),
+              ClipOval(
                 child: Image.network(
                   note.user.avatarUrl.toString(),
                   width: 43,
                   height: 43,
+                  fit: BoxFit.cover,
                 ),
               ),
               Expanded(
