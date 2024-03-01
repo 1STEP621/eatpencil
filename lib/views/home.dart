@@ -15,8 +15,11 @@ class HomePage extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: servers(ref).isEmpty ? const Welcome() : Timeline(server: servers(ref)[0]),
-      ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: servers(ref).isEmpty ? const Welcome() : Timeline(server: servers(ref)[0]),
+        ),
+      )
     );
   }
 }
