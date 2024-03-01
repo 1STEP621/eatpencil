@@ -81,7 +81,6 @@ class NoteContent extends ConsumerWidget {
               if ((depth ?? 0) < 2)
                 Column(
                   children: [
-                    const Gap(5),
                     ClipOval(
                       child: ImageWithBlurHash(
                         imageUrl: note.user.avatarUrl.toString(),
