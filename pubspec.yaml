@@ -59,6 +59,8 @@ dependencies:
   intersperse: ^2.0.0
   gap: ^3.0.1
   timeago: ^3.6.1
+  flutter_blurhash: ^0.8.2
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

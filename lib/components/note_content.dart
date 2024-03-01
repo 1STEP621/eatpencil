@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+import 'package:eatpencil/components/general/image_with_blurhash.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/column_with_gap.dart';
@@ -78,13 +78,13 @@ class NoteContent extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipOval(
-                child: Image.network(
-                  note.user.avatarUrl.toString(),
-                  width: 43,
-                  height: 43,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  child: ImageWithBlurHash(
+                imageUrl: note.user.avatarUrl.toString(),
+                blurHash: note.user.avatarBlurhash,
+                fit: BoxFit.cover,
+                width: 45,
+                height: 45,
+              )),
               Expanded(
                 child: ColumnWithGap(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,8 +123,9 @@ class NoteContent extends ConsumerWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           for (final file in imageFiles)
-                            Image.network(
-                              file.thumbnailUrl ?? file.url,
+                            ImageWithBlurHash(
+                              imageUrl: file.thumbnailUrl ?? file.url,
+                              blurHash: file.blurhash,
                             ),
                           for (final file in videoFiles)
                             VideoPlayer(
@@ -255,7 +256,7 @@ class NoteContent extends ConsumerWidget {
                       ),
                   ],
                 ),
-              )
+              ),
             ],
           );
   }
