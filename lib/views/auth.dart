@@ -1,3 +1,4 @@
+import 'package:eatpencil/components/general/button.dart';
 import 'package:eatpencil/components/general/column_with_gap.dart';
 import 'package:eatpencil/components/general/panel.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
@@ -55,18 +56,21 @@ class AuthPageState extends ConsumerState<AuthPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   gap: 5,
                   children: [
-                    ElevatedButton(
+                    Button(
                       onPressed: () {
                         startAuth();
                       },
-                      child: Text(isUrlLaunched ? "もう一回！" : "認証する！"),
+                      gradate: true,
+                      rounded: true,
+                      text: isUrlLaunched ? "もう一回！" : "認証する！",
                     ),
                     if (isUrlLaunched)
-                      ElevatedButton(
+                      Button(
                         onPressed: () {
                           finishAuth();
                         },
-                        child: const Text("認証してきた"),
+                        rounded: true,
+                        text: "認証してきた",
                       ),
                   ],
                 )

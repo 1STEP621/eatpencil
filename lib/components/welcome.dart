@@ -1,3 +1,4 @@
+import 'package:eatpencil/components/general/button.dart';
 import 'package:eatpencil/components/general/panel.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -23,11 +24,13 @@ class Welcome extends StatelessWidget {
             const Gap(10),
             const Text("最初のサーバーを追加しましょう！"),
             const Gap(10),
-            ElevatedButton(
+            Button(
               onPressed: () {
                 context.push("/auth");
               },
-              child: const Text("サーバーを追加"),
+              gradate: true,
+              rounded: true,
+              text: "サーバーを追加",
             ),
           ],
         ),
