@@ -78,14 +78,19 @@ class NoteContent extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if ((depth ?? 0) < 2)
-                ClipOval(
-                  child: ImageWithBlurHash(
-                    imageUrl: note.user.avatarUrl.toString(),
-                    blurHash: note.user.avatarBlurhash,
-                    fit: BoxFit.cover,
-                    width: 45,
-                    height: 45,
-                  ),
+                Column(
+                  children: [
+                    const Gap(5),
+                    ClipOval(
+                      child: ImageWithBlurHash(
+                        imageUrl: note.user.avatarUrl.toString(),
+                        blurHash: note.user.avatarBlurhash,
+                        fit: BoxFit.cover,
+                        width: 45,
+                        height: 45,
+                      ),
+                    ),
+                  ],
                 ),
               Expanded(
                 child: ColumnWithGap(
