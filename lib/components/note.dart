@@ -17,7 +17,7 @@ class NoteCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(12.5),
         child: NoteContent(
           note: note,
           server: server,
