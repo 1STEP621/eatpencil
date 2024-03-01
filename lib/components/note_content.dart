@@ -11,7 +11,6 @@ import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:mfm/mfm.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';

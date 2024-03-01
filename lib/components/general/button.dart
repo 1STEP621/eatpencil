@@ -1,6 +1,6 @@
+import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/providers.dart';
 
 class Button extends ConsumerWidget {
   final String text;
