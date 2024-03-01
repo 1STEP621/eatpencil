@@ -132,10 +132,11 @@ class NoteContent extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             for (final role in note.user.badgeRoles)
-                              CachedNetworkImage(
-                                imageUrl: role.iconUrl.toString(),
-                                height: 15,
-                              ),
+                              if (role.iconUrl != null)
+                                CachedNetworkImage(
+                                  imageUrl: role.iconUrl.toString(),
+                                  height: 15,
+                                ),
                             Text(
                               timeago.format(note.createdAt.toLocal(), locale: 'ja'),
                               textAlign: TextAlign.right,
