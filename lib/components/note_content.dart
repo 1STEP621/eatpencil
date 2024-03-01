@@ -101,19 +101,41 @@ class NoteContent extends ConsumerWidget {
                     RowWithGap(
                       gap: 5,
                       children: [
-                        Expanded(
-                          child: Text(
-                            note.user.name ?? "",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                        Flexible(
+                          child: RowWithGap(
+                            gap: 5,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  note.user.name ?? "",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  "@${note.user.username}",
+                                  style: const TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Text(
-                          timeago.format(note.createdAt.toLocal(), locale: 'ja'),
-                          textAlign: TextAlign.right,
-                        ),
+                        RowWithGap(
+                          gap: 5,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              timeago.format(note.createdAt.toLocal(), locale: 'ja'),
+                              textAlign: TextAlign.right,
+                            ),
+                          ],
+                        )
                       ],
                     ),
                     SelectionArea(
