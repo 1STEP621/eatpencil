@@ -8,6 +8,7 @@ import 'package:eatpencil/components/general/simple_icon_button.dart';
 import 'package:eatpencil/components/general/video_player.dart';
 import 'package:eatpencil/components/reactions_viewer.dart';
 import 'package:eatpencil/providers.dart';
+import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -237,7 +238,7 @@ class NoteContent extends ConsumerWidget {
                           SimpleIconButton(
                             icon: const Icon(TablerIcons.repeat),
                             onPressed: () {
-                              showModalBottomSheet(
+                              showModalBottomSheetWithBlur(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return BottomSheetMenu(
@@ -275,7 +276,7 @@ class NoteContent extends ConsumerWidget {
                           SimpleIconButton(
                             icon: const Icon(TablerIcons.dots),
                             onPressed: () {
-                              showModalBottomSheet(
+                              showModalBottomSheetWithBlur(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return BottomSheetMenu(
