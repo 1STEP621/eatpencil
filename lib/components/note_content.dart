@@ -9,8 +9,11 @@ import 'package:eatpencil/components/general/video_player.dart';
 import 'package:eatpencil/components/reactions_viewer.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mfm/mfm.dart';
 import 'package:misskey_dart/misskey_dart.dart';
@@ -115,6 +118,7 @@ class NoteContent extends ConsumerWidget {
                                 ),
                               ),
                               Flexible(
+                                flex: 0,
                                 child: Text(
                                   "@${note.user.username}",
                                   style: const TextStyle(
