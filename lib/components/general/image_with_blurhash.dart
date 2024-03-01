@@ -35,10 +35,12 @@ class ImageWithBlurHash extends CachedNetworkImage {
     super.errorListener,
     super.imageRenderMethodForWeb,
   }) : super(
-          placeholder: (context, url) => BlurHash(
-            hash: blurHash ?? "",
-            imageFit: fit ?? BoxFit.fill,
-            duration: fadeInDuration,
-          ),
+          placeholder: blurHash == null
+              ? null
+              : (context, url) => BlurHash(
+                    hash: blurHash,
+                    imageFit: fit ?? BoxFit.fill,
+                    duration: fadeInDuration,
+                  ),
         );
 }
