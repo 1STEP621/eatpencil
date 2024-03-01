@@ -1,9 +1,11 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class JsonStore {
   JsonStore();
+
   static Future<void> save(String key, Object value) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(key, json.encode(value));
@@ -17,6 +19,7 @@ class JsonStore {
 
 class SecureJsonStore {
   SecureJsonStore();
+
   static Future<void> save(String key, Object value) async {
     const storage = FlutterSecureStorage();
     storage.write(key: key, value: json.encode(value));

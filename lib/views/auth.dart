@@ -1,15 +1,15 @@
 import 'package:eatpencil/components/general/column_with_gap.dart';
 import 'package:eatpencil/components/general/panel.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
+import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/utils/json_store.dart';
+import 'package:eatpencil/utils/ratio_sizing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/utils/ratio_sizing.dart';
-import 'package:eatpencil/providers.dart';
 import 'package:go_router/go_router.dart';
 import 'package:misskey_dart/misskey_dart.dart';
-import 'package:uuid/uuid.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({super.key});

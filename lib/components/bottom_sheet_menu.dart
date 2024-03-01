@@ -17,6 +17,7 @@ class Entry {
 
 class BottomSheetMenu extends ConsumerWidget {
   final List<Entry> entries;
+
   const BottomSheetMenu({
     super.key,
     required this.entries,

@@ -1,8 +1,8 @@
 import 'package:eatpencil/providers.dart';
+import 'package:eatpencil/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/router.dart';
 import 'package:media_kit/media_kit.dart';
 
 void main() {
@@ -12,6 +12,7 @@ void main() {
 
 class Eatpencil extends ConsumerWidget {
   const Eatpencil({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(

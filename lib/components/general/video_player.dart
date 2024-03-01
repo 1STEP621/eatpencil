@@ -4,6 +4,7 @@ import 'package:media_kit_video/media_kit_video.dart';
 
 class VideoPlayer extends StatefulWidget {
   final String url;
+
   const VideoPlayer({
     super.key,
     required this.url,

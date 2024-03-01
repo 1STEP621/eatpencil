@@ -1,10 +1,11 @@
+import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/providers.dart';
 
 class SimpleIconButton extends ConsumerWidget {
   final Widget icon;
   final void Function() onPressed;
+
   const SimpleIconButton({
     super.key,
     required this.icon,

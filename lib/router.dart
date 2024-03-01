@@ -1,7 +1,7 @@
 import 'package:eatpencil/views/auth.dart';
+import 'package:eatpencil/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:eatpencil/views/home.dart';
 
 final goRouter = GoRouter(
   initialLocation: "/home",
