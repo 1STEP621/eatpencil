@@ -11,7 +11,7 @@ Future<T?> showModalBottomSheetWithBlur<T>({
   Clip? clipBehavior,
   BoxConstraints? constraints,
   Color? barrierColor,
-  bool isScrollControlled = false,
+  bool isScrollControlled = true,
   double scrollControlDisabledMaxHeightRatio = 9.0 / 16.0,
   bool useRootNavigator = false,
   bool isDismissible = true,
