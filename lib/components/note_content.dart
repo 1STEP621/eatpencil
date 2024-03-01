@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/column_with_gap.dart';
@@ -104,7 +105,7 @@ class NoteContent extends ConsumerWidget {
                         Flexible(
                           child: RowWithGap(
                             gap: 5,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
                                 child: Text(
@@ -128,8 +129,14 @@ class NoteContent extends ConsumerWidget {
                         ),
                         RowWithGap(
                           gap: 5,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            for (final role in note.user.badgeRoles)
+                              CachedNetworkImage(
+                                imageUrl: role.iconUrl.toString(),
+                                height: 15,
+                              ),
                             Text(
                               timeago.format(note.createdAt.toLocal(), locale: 'ja'),
                               textAlign: TextAlign.right,
