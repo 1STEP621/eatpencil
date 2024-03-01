@@ -1,6 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:eatpencil/components/general/image_with_blurhash.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/column_with_gap.dart';
