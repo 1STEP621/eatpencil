@@ -17,7 +17,7 @@ class HomePage extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: (ref.watch(serversAsyncNotifierProvider).value ?? []).isEmpty
+        child: (ref.watch(serversProvider).value ?? []).isEmpty
             ? const Welcome()
             : Container(
                 decoration: BoxDecoration(
@@ -29,17 +29,17 @@ class HomePage extends ConsumerWidget {
                   ),
                 ),
                 clipBehavior: Clip.hardEdge,
-                child: Timeline(server: ref.watch(serversAsyncNotifierProvider).value![0]),
+                child: Timeline(server: ref.watch(serversProvider).value![0]),
               ),
       ),
-      floatingActionButton: (ref.watch(serversAsyncNotifierProvider).value ?? []).isEmpty
+      floatingActionButton: (ref.watch(serversProvider).value ?? []).isEmpty
           ? null
           : FloatingActionButton(
               onPressed: () {
                 showModalBottomSheetWithBlur(
                   context: context,
                   builder: (context) {
-                    return NoteForm(server: ref.watch(serversAsyncNotifierProvider).value![0]);
+                    return NoteForm(server: ref.watch(serversProvider).value![0]);
                   },
                 );
               },

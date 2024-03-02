@@ -21,12 +21,12 @@ MkTheme theme(WidgetRef ref) {
 }
 
 
-final serversAsyncNotifierProvider = AsyncNotifierProvider<ServersAsyncNotifier, List<Misskey>>(
-  ServersAsyncNotifier.new,
+final serversProvider = AsyncNotifierProvider<ServersNotifier, List<Misskey>>(
+  ServersNotifier.new,
 );
 
-class ServersAsyncNotifier extends AsyncNotifier<List<Misskey>> {
-  ServersAsyncNotifier() : super();
+class ServersNotifier extends AsyncNotifier<List<Misskey>> {
+  ServersNotifier() : super();
 
   List<Misskey> get value => state.value ?? [];
 
