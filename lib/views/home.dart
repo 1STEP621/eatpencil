@@ -17,7 +17,7 @@ class HomePage extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: ref.watch(serversAsyncNotifierProvider).value!.isEmpty
+        child: (ref.watch(serversAsyncNotifierProvider).value ?? []).isEmpty
             ? const Welcome()
             : Container(
                 decoration: BoxDecoration(
@@ -32,7 +32,7 @@ class HomePage extends ConsumerWidget {
                 child: Timeline(server: ref.watch(serversAsyncNotifierProvider).value![0]),
               ),
       ),
-      floatingActionButton: ref.watch(serversAsyncNotifierProvider).value!.isEmpty
+      floatingActionButton: (ref.watch(serversAsyncNotifierProvider).value ?? []).isEmpty
           ? null
           : FloatingActionButton(
               onPressed: () {

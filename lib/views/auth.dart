@@ -47,7 +47,7 @@ class AuthPageState extends ConsumerState<AuthPage> {
                   decoration: InputDecoration(
                     hintText: "サーバードメイン (e.g. misskey.io)",
                     hintStyle: TextStyle(
-                      color: theme(context).fgTransparent,
+                      color: theme(ref).fgTransparent,
                     ),
                   ),
                 ),
