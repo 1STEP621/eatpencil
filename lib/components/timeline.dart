@@ -57,9 +57,9 @@ class TimelineState extends ConsumerState<Timeline> {
     return Column(
       children: [
         if (_isFetching) ...[
-          const Gap(10),
+          const Gap(40),
           const CircularProgressIndicator(),
-          const Gap(10),
+          const Gap(40),
         ],
         Expanded(
           child: AnimatedList(
