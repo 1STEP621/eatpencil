@@ -115,7 +115,6 @@ class NoteContent extends ConsumerWidget {
                                 ),
                               ),
                               Flexible(
-                                flex: 0,
                                 child: Text(
                                   "@${note.user.username}",
                                   style: const TextStyle(
