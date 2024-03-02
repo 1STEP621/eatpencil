@@ -188,10 +188,10 @@ class NoteContent extends ConsumerWidget {
                               imageUrl: file.thumbnailUrl ?? file.url,
                               blurHash: file.blurhash,
                             ),
-                          for (final file in videoFiles)
-                            VideoPlayer(
-                              url: file.url,
-                            ),
+                          // for (final file in videoFiles)
+                          //   VideoPlayer(
+                          //     url: file.url,
+                          //   ),
                         ],
                       ),
                     if (isQuote && (depth ?? 0) < 4)
