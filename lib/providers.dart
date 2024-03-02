@@ -4,13 +4,22 @@ import 'package:eatpencil/utils/json_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 
-final themeProvider = Provider((ref) {
-  return themes["Mi Astro Dark"];
+final themeProvider = StateNotifierProvider<ThemeNotifier, MkTheme>((ref) {
+  return ThemeNotifier();
 });
 
-MkTheme theme(ref) {
+class ThemeNotifier extends StateNotifier<MkTheme> {
+  ThemeNotifier() : super(themes["Mi Green+Lime Dark"]!);
+
+  void toggle(String themeName) {
+    state = themes[themeName]!;
+  }
+}
+// ショートハンド
+MkTheme theme(WidgetRef ref) {
   return ref.watch(themeProvider);
 }
+
 
 final serversAsyncNotifierProvider = AsyncNotifierProvider<ServersAsyncNotifier, List<Misskey>>(
   ServersAsyncNotifier.new,
