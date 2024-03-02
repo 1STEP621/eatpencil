@@ -17,19 +17,20 @@ class HomePage extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: theme(ref).divider,
-                width: 1,
-                strokeAlign: BorderSide.strokeAlignOutside,
+        child: ref.watch(serversAsyncNotifierProvider).value!.isEmpty
+            ? const Welcome()
+            : Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: theme(ref).divider,
+                    width: 1,
+                    strokeAlign: BorderSide.strokeAlignOutside,
+                  ),
+                ),
+                clipBehavior: Clip.hardEdge,
+                child: Timeline(server: ref.watch(serversAsyncNotifierProvider).value![0]),
               ),
-            ),
-            clipBehavior: Clip.hardEdge,
-            child: ref.watch(serversAsyncNotifierProvider).value!.isEmpty
-                ? const Welcome()
-                : Timeline(server: ref.watch(serversAsyncNotifierProvider).value![0])),
       ),
       floatingActionButton: ref.watch(serversAsyncNotifierProvider).value!.isEmpty
           ? null
