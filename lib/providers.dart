@@ -28,8 +28,6 @@ final serversProvider = AsyncNotifierProvider<ServersNotifier, List<Misskey>>(
 class ServersNotifier extends AsyncNotifier<List<Misskey>> {
   ServersNotifier() : super();
 
-  List<Misskey> get value => state.value ?? [];
-
   @override
   Future<List<Misskey>> build() async {
     return (await SecureJsonStore.load<List>("servers") ?? []).map(toMisskey).toList();
