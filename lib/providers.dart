@@ -12,15 +12,49 @@ MkTheme theme(ref) {
   return ref.watch(themeProvider);
 }
 
-final serversProvider = FutureProvider((ref) async {
-  return (await SecureJsonStore.load("servers"));
-});
+final serversAsyncNotifierProvider = AsyncNotifierProvider<ServersAsyncNotifier, List<Misskey>>(
+  ServersAsyncNotifier.new,
+);
 
-List<Misskey> servers(ref) {
-  return (ref.watch(serversProvider)?.value ?? []).map<Misskey>((e) {
-    return Misskey(
-      host: e["host"],
-      token: e["token"],
-    );
-  }).toList();
+class ServersAsyncNotifier extends AsyncNotifier<List<Misskey>> {
+  ServersAsyncNotifier() : super();
+
+  List<Misskey> get value => state.value ?? [];
+
+  @override
+  Future<List<Misskey>> build() async {
+    return (await SecureJsonStore.load<List>("servers") ?? []).map(toMisskey).toList();
+  }
+
+  Future<void> add(Misskey server) async {
+    update((p0) async {
+      state = const AsyncLoading();
+      p0.add(server);
+      await SecureJsonStore.save("servers", p0.map(toMap).toList());
+      return p0;
+    });
+  }
+
+  Future<void> remove(Misskey server) async {
+    update((p0) async {
+      state = const AsyncLoading();
+      p0.remove(server);
+      await SecureJsonStore.save("servers", p0.map(toMap).toList());
+      return p0;
+    });
+  }
+}
+
+Misskey toMisskey(dynamic json) {
+  return Misskey(
+    host: json["host"],
+    token: json["token"],
+  );
+}
+
+dynamic toMap(Misskey server) {
+  return {
+    "host": server.host,
+    "token": server.token!,
+  };
 }

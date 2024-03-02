@@ -3,7 +3,6 @@ import 'package:eatpencil/components/general/column_with_gap.dart';
 import 'package:eatpencil/components/general/panel.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
 import 'package:eatpencil/providers.dart';
-import 'package:eatpencil/utils/json_store.dart';
 import 'package:eatpencil/utils/ratio_sizing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -97,14 +96,12 @@ class AuthPageState extends ConsumerState<AuthPage> {
   }
 
   Future<void> finishAuth() async {
-    final content = await SecureJsonStore.load<List<dynamic>>("servers") ?? [];
-    content.add({
-      "host": host,
-      "token": await MisskeyServer().checkMiAuthToken(host, session),
-    });
-    SecureJsonStore.save("servers", content).then((_) async {
-      context.pop();
-      await SecureJsonStore.load("servers");
-    });
+    await ref.read(serversAsyncNotifierProvider.notifier).add(
+      Misskey(
+        host: host,
+        token: await MisskeyServer().checkMiAuthToken(host, session),
+      ),
+    );
+    if (mounted) context.pop();
   }
 }

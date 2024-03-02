@@ -18,29 +18,32 @@ class HomePage extends ConsumerWidget {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: theme(ref).divider,
-              width: 1,
-              strokeAlign: BorderSide.strokeAlignOutside,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: theme(ref).divider,
+                width: 1,
+                strokeAlign: BorderSide.strokeAlignOutside,
+              ),
             ),
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: servers(ref).isEmpty ? const Welcome() : Timeline(server: servers(ref)[0]),
-        ),
+            clipBehavior: Clip.hardEdge,
+            child: ref.watch(serversAsyncNotifierProvider).value!.isEmpty
+                ? const Welcome()
+                : Timeline(server: ref.watch(serversAsyncNotifierProvider).value![0])),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheetWithBlur(
-            context: context,
-            builder: (context) {
-              return NoteForm(server: servers(ref)[0]);
-            },
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: ref.watch(serversAsyncNotifierProvider).value!.isEmpty
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                showModalBottomSheetWithBlur(
+                  context: context,
+                  builder: (context) {
+                    return NoteForm(server: ref.watch(serversAsyncNotifierProvider).value![0]);
+                  },
+                );
+              },
+              child: const Icon(Icons.add),
+            ),
     );
   }
 }
