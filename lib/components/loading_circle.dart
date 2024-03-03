@@ -69,7 +69,8 @@ class _LoadingCirclePainter extends CustomPainter {
     Paint coloredPaint = Paint()
       ..color = theme(ref).accent
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 5.0;
+      ..strokeWidth = 5.0
+      ..strokeCap = StrokeCap.round;
 
     canvas.drawArc(
       Rect.fromCircle(
