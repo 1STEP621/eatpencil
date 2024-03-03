@@ -15,11 +15,11 @@ class ThemeNotifier extends StateNotifier<MkTheme> {
     state = themes[themeName]!;
   }
 }
+
 // ショートハンド
 MkTheme theme(WidgetRef ref) {
   return ref.watch(themeProvider);
 }
-
 
 final serversProvider = AsyncNotifierProvider<ServersNotifier, List<Misskey>>(
   ServersNotifier.new,

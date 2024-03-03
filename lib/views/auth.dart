@@ -97,11 +97,11 @@ class AuthPageState extends ConsumerState<AuthPage> {
 
   Future<void> finishAuth() async {
     await ref.read(serversProvider.notifier).add(
-      Misskey(
-        host: host,
-        token: await MisskeyServer().checkMiAuthToken(host, session),
-      ),
-    );
+          Misskey(
+            host: host,
+            token: await MisskeyServer().checkMiAuthToken(host, session),
+          ),
+        );
     if (mounted) context.pop();
   }
 }
