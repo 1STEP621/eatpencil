@@ -1,3 +1,4 @@
+import 'package:eatpencil/components/loading_circle.dart';
 import 'package:eatpencil/components/note.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,7 +59,7 @@ class TimelineState extends ConsumerState<Timeline> {
       children: [
         if (_isFetching) ...[
           const Gap(40),
-          const CircularProgressIndicator(),
+          const LoadingCircle(),
           const Gap(40),
         ],
         Expanded(
