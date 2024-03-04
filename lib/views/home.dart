@@ -1,3 +1,4 @@
+import 'package:eatpencil/components/bottom_buttons_bar.dart';
 import 'package:eatpencil/components/note_form.dart';
 import 'package:eatpencil/components/timeline.dart';
 import 'package:eatpencil/components/welcome.dart';
@@ -5,6 +6,7 @@ import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -32,19 +34,43 @@ class HomePage extends ConsumerWidget {
                 child: Timeline(server: ref.watch(serversProvider).value![0]),
               ),
       ),
-      floatingActionButton: (ref.watch(serversProvider).value ?? []).isEmpty
-          ? null
-          : FloatingActionButton(
-              onPressed: () {
-                showModalBottomSheetWithBlur(
-                  context: context,
-                  builder: (context) {
-                    return NoteForm(server: ref.watch(serversProvider).value![0]);
-                  },
-                );
-              },
-              child: const Icon(Icons.add),
-            ),
+      bottomNavigationBar: BottomButtonsBar(
+        entries: [
+          Entry(
+            icon: TablerIcons.menu_2,
+            label: "Menu",
+            onTap: () {},
+          ),
+          Entry(
+            icon: TablerIcons.home,
+            label: "Home",
+            onTap: () {},
+          ),
+          Entry(
+            icon: TablerIcons.bell,
+            label: "Notifications",
+            onTap: () {},
+          ),
+          Entry(
+            icon: TablerIcons.server,
+            label: "Servers",
+            onTap: () {},
+          ),
+          Entry(
+            icon: TablerIcons.pencil,
+            label: "Note",
+            onTap: () {
+              showModalBottomSheetWithBlur(
+                context: context,
+                builder: (context) {
+                  return NoteForm(server: ref.watch(serversProvider).value![0]);
+                },
+              );
+            },
+            gradate: true,
+          ),
+        ],
+      ),
     );
   }
 }
