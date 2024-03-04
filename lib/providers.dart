@@ -65,3 +65,5 @@ dynamic toMap(Misskey server) {
     "token": server.token!,
   };
 }
+
+final focusedServerProvider = StateProvider((ref) => ref.read(serversProvider).value![0]);

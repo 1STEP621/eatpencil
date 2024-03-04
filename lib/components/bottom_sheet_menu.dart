@@ -2,20 +2,20 @@ import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Entry {
+class BottomSheetMenuEntry {
   final String title;
-  final IconData icon;
+  final IconData? icon;
   final void Function() onPressed;
 
-  const Entry({
+  const BottomSheetMenuEntry({
     required this.title,
-    required this.icon,
+    this.icon,
     required this.onPressed,
   });
 }
 
 class BottomSheetMenu extends ConsumerWidget {
-  final List<Entry> entries;
+  final List<BottomSheetMenuEntry> entries;
 
   const BottomSheetMenu({
     super.key,
@@ -42,10 +42,12 @@ class BottomSheetMenu extends ConsumerWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              leading: Icon(
-                entry.icon,
-                color: theme(ref).fg,
-              ),
+              leading: entry.icon == null
+                  ? null
+                  : Icon(
+                      entry.icon,
+                      color: theme(ref).fg,
+                    ),
               onTap: () {
                 entry.onPressed();
                 Navigator.pop(context);

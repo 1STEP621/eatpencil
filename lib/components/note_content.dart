@@ -243,7 +243,7 @@ class NoteContent extends ConsumerWidget {
                                 builder: (BuildContext context) {
                                   return BottomSheetMenu(
                                     entries: [
-                                      Entry(
+                                      BottomSheetMenuEntry(
                                         title: "リノート",
                                         icon: TablerIcons.repeat,
                                         onPressed: () {
@@ -254,7 +254,7 @@ class NoteContent extends ConsumerWidget {
                                           );
                                         },
                                       ),
-                                      Entry(
+                                      BottomSheetMenuEntry(
                                         title: "引用リノート",
                                         icon: TablerIcons.quote,
                                         onPressed: () {
@@ -281,14 +281,14 @@ class NoteContent extends ConsumerWidget {
                                 builder: (BuildContext context) {
                                   return BottomSheetMenu(
                                     entries: [
-                                      Entry(
+                                      BottomSheetMenuEntry(
                                         title: "詳細",
                                         icon: TablerIcons.info_circle,
                                         onPressed: () {
                                           // TODO: Detail
                                         },
                                       ),
-                                      Entry(
+                                      BottomSheetMenuEntry(
                                         title: "内容をコピー",
                                         icon: TablerIcons.copy,
                                         onPressed: () {
@@ -297,7 +297,7 @@ class NoteContent extends ConsumerWidget {
                                           );
                                         },
                                       ),
-                                      Entry(
+                                      BottomSheetMenuEntry(
                                         title: "リンクをコピー",
                                         icon: TablerIcons.link,
                                         onPressed: () {

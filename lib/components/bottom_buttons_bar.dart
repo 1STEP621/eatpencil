@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:eatpencil/providers.dart';
 
-class Entry {
+class BottomButtonsBarEntry {
   final IconData icon;
   final String label;
   final void Function() onTap;
   final bool primary;
   final bool gradate;
 
-  Entry({
+  BottomButtonsBarEntry({
     required this.icon,
     required this.label,
     required this.onTap,
@@ -19,7 +19,7 @@ class Entry {
 }
 
 class BottomButtonsBar extends ConsumerWidget {
-  final List<Entry> entries;
+  final List<BottomButtonsBarEntry> entries;
 
   const BottomButtonsBar({super.key, required this.entries});
 

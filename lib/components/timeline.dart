@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:misskey_dart/misskey_dart.dart';
+import 'package:eatpencil/providers.dart';
 
 class Timeline extends ConsumerStatefulWidget {
-  final Misskey server;
-
-  const Timeline({required this.server, super.key});
+  const Timeline({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
@@ -21,13 +20,25 @@ class TimelineState extends ConsumerState<Timeline> {
   final List<Note> _notes = [];
   bool _isFetching = true;
 
-  @override
-  void initState() {
-    widget.server.notes
-        .localTimeline(
+  void cleanConnections(Misskey server) {
+    server.streamingService.close();
+  }
+
+  void cleanNotes() {
+    _notes.clear();
+    _listKey.currentState?.removeAllItems((context, animation) => SizeTransition(
+      sizeFactor: animation,
+      child: const SizedBox(),
+    ));
+  }
+
+  void initNotes(Misskey server) {
+    setState(() {
+      _isFetching = true;
+    });
+    server.notes.localTimeline(
       const NotesLocalTimelineRequest(limit: 50),
-    )
-        .then((initialNotes) {
+    ).then((initialNotes) {
       _notes.addAll(initialNotes);
       _listKey.currentState?.insertAllItems(
         _notes.length - initialNotes.length,
@@ -38,9 +49,11 @@ class TimelineState extends ConsumerState<Timeline> {
         _isFetching = false;
       });
     });
+  }
 
-    widget.server.streamingService.startStreaming();
-    widget.server.localTimelineStream(
+  void connectStream(Misskey server) {
+    server.streamingService.startStreaming();
+    server.localTimelineStream(
       parameter: const LocalTimelineParameter(),
       onNoteReceived: (Note newNote) {
         _notes.insert(0, newNote);
@@ -50,11 +63,24 @@ class TimelineState extends ConsumerState<Timeline> {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    initNotes(ref.read(focusedServerProvider));
+    connectStream(ref.read(focusedServerProvider));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(focusedServerProvider, (prevServer, server) {
+      if (prevServer != null) cleanConnections(prevServer);
+      cleanNotes();
+      initNotes(server);
+      connectStream(server);
+    });
+
     return Column(
       children: [
         if (_isFetching) ...[
@@ -77,7 +103,7 @@ class TimelineState extends ConsumerState<Timeline> {
                 ).animate(animation),
                 child: NoteCard(
                   note: _notes[index],
-                  server: widget.server,
+                  server: ref.read(focusedServerProvider),
                 ),
               );
             },
