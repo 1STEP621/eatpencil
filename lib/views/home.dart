@@ -34,43 +34,45 @@ class HomePage extends ConsumerWidget {
                 child: Timeline(server: ref.watch(serversProvider).value![0]),
               ),
       ),
-      bottomNavigationBar: BottomButtonsBar(
-        entries: [
-          Entry(
-            icon: TablerIcons.menu_2,
-            label: "Menu",
-            onTap: () {},
-          ),
-          Entry(
-            icon: TablerIcons.home,
-            label: "Home",
-            onTap: () {},
-          ),
-          Entry(
-            icon: TablerIcons.bell,
-            label: "Notifications",
-            onTap: () {},
-          ),
-          Entry(
-            icon: TablerIcons.server,
-            label: "Servers",
-            onTap: () {},
-          ),
-          Entry(
-            icon: TablerIcons.pencil,
-            label: "Note",
-            onTap: () {
-              showModalBottomSheetWithBlur(
-                context: context,
-                builder: (context) {
-                  return NoteForm(server: ref.watch(serversProvider).value![0]);
-                },
-              );
-            },
-            gradate: true,
-          ),
-        ],
-      ),
+      bottomNavigationBar: (ref.watch(serversProvider).value ?? []).isEmpty
+          ? null
+          : BottomButtonsBar(
+              entries: [
+                Entry(
+                  icon: TablerIcons.menu_2,
+                  label: "Menu",
+                  onTap: () {},
+                ),
+                Entry(
+                  icon: TablerIcons.home,
+                  label: "Home",
+                  onTap: () {},
+                ),
+                Entry(
+                  icon: TablerIcons.bell,
+                  label: "Notifications",
+                  onTap: () {},
+                ),
+                Entry(
+                  icon: TablerIcons.server,
+                  label: "Servers",
+                  onTap: () {},
+                ),
+                Entry(
+                  icon: TablerIcons.pencil,
+                  label: "Note",
+                  onTap: () {
+                    showModalBottomSheetWithBlur(
+                      context: context,
+                      builder: (context) {
+                        return NoteForm(server: ref.watch(serversProvider).value![0]);
+                      },
+                    );
+                  },
+                  gradate: true,
+                ),
+              ],
+            ),
     );
   }
 }
