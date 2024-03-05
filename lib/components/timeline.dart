@@ -1,10 +1,10 @@
 import 'package:eatpencil/components/loading_circle.dart';
 import 'package:eatpencil/components/note.dart';
+import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:misskey_dart/misskey_dart.dart';
-import 'package:eatpencil/providers.dart';
 
 class Timeline extends ConsumerStatefulWidget {
   const Timeline({super.key});
@@ -26,19 +26,23 @@ class TimelineState extends ConsumerState<Timeline> {
 
   void cleanNotes() {
     _notes.clear();
-    _listKey.currentState?.removeAllItems((context, animation) => SizeTransition(
-      sizeFactor: animation,
-      child: const SizedBox(),
-    ));
+    _listKey.currentState?.removeAllItems(
+      (context, animation) => SizeTransition(
+        sizeFactor: animation,
+        child: const SizedBox(),
+      ),
+    );
   }
 
   void initNotes(Misskey server) {
     setState(() {
       _isFetching = true;
     });
-    server.notes.localTimeline(
+    server.notes
+        .localTimeline(
       const NotesLocalTimelineRequest(limit: 50),
-    ).then((initialNotes) {
+    )
+        .then((initialNotes) {
       _notes.addAll(initialNotes);
       _listKey.currentState?.insertAllItems(
         _notes.length - initialNotes.length,

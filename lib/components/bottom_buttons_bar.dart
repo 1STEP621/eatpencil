@@ -1,6 +1,6 @@
+import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/providers.dart';
 
 class BottomButtonsBarEntry {
   final IconData icon;
@@ -47,7 +47,7 @@ class BottomButtonsBar extends ConsumerWidget {
                     if (entry.primary) return theme(ref).accent;
                     if (entry.gradate) return null;
                     return theme(ref).buttonBg;
-                  } (),
+                  }(),
                   gradient: entry.gradate
                       ? LinearGradient(
                           colors: [

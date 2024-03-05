@@ -1,4 +1,3 @@
-import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/views/auth.dart';
 import 'package:eatpencil/views/home.dart';
 import 'package:eatpencil/views/loading.dart';
