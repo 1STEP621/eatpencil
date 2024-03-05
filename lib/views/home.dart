@@ -2,7 +2,6 @@ import 'package:eatpencil/components/bottom_buttons_bar.dart';
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/note_form.dart';
 import 'package:eatpencil/components/timeline.dart';
-import 'package:eatpencil/components/welcome.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
 import 'package:flutter/material.dart';
@@ -21,85 +20,81 @@ class HomePage extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: (ref.watch(serversProvider).value ?? []).isEmpty
-            ? const Welcome()
-            : Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: theme(ref).divider,
-                    width: 1,
-                    strokeAlign: BorderSide.strokeAlignOutside,
-                  ),
-                ),
-                clipBehavior: Clip.hardEdge,
-                child: const Timeline(),
-              ),
-      ),
-      bottomNavigationBar: (ref.watch(serversProvider).value ?? []).isEmpty
-          ? null
-          : BottomButtonsBar(
-              entries: [
-                BottomButtonsBarEntry(
-                  icon: TablerIcons.menu_2,
-                  label: "Menu",
-                  onTap: () {},
-                ),
-                BottomButtonsBarEntry(
-                  icon: TablerIcons.home,
-                  label: "Home",
-                  onTap: () {},
-                ),
-                BottomButtonsBarEntry(
-                  icon: TablerIcons.bell,
-                  label: "Notifications",
-                  onTap: () {},
-                ),
-                BottomButtonsBarEntry(
-                  icon: TablerIcons.server,
-                  label: "Servers",
-                  onTap: () {
-                    showModalBottomSheetWithBlur(
-                      context: context,
-                      builder: (context) {
-                        return BottomSheetMenu(
-                          entries: [
-                            for (final server in ref.watch(serversProvider).value!)
-                              BottomSheetMenuEntry(
-                                title: server.host,
-                                onPressed: () {
-                                  ref.read(focusedServerProvider.notifier).update((state) => server);
-                                },
-                              ),
-                            BottomSheetMenuEntry(
-                              title: "サーバーを追加",
-                              onPressed: () {
-                                context.push("/auth");
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                ),
-                BottomButtonsBarEntry(
-                  icon: TablerIcons.pencil,
-                  label: "Note",
-                  onTap: () {
-                    showModalBottomSheetWithBlur(
-                      context: context,
-                      builder: (context) {
-                        return NoteForm(
-                          server: ref.watch(focusedServerProvider),
-                        );
-                      },
-                    );
-                  },
-                  gradate: true,
-                ),
-              ],
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: theme(ref).divider,
+              width: 1,
+              strokeAlign: BorderSide.strokeAlignOutside,
             ),
+          ),
+          clipBehavior: Clip.hardEdge,
+          child: const Timeline(),
+        ),
+      ),
+      bottomNavigationBar: BottomButtonsBar(
+        entries: [
+          BottomButtonsBarEntry(
+            icon: TablerIcons.menu_2,
+            label: "Menu",
+            onTap: () {},
+          ),
+          BottomButtonsBarEntry(
+            icon: TablerIcons.home,
+            label: "Home",
+            onTap: () {},
+          ),
+          BottomButtonsBarEntry(
+            icon: TablerIcons.bell,
+            label: "Notifications",
+            onTap: () {},
+          ),
+          BottomButtonsBarEntry(
+            icon: TablerIcons.server,
+            label: "Servers",
+            onTap: () {
+              showModalBottomSheetWithBlur(
+                context: context,
+                builder: (context) {
+                  return BottomSheetMenu(
+                    entries: [
+                      for (final server in ref.watch(serversProvider).value!)
+                        BottomSheetMenuEntry(
+                          title: server.host,
+                          onPressed: () {
+                            ref.read(focusedServerProvider.notifier).update((state) => server);
+                          },
+                        ),
+                      BottomSheetMenuEntry(
+                        title: "サーバーを追加",
+                        onPressed: () {
+                          context.push("/auth");
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+          BottomButtonsBarEntry(
+            icon: TablerIcons.pencil,
+            label: "Note",
+            onTap: () {
+              showModalBottomSheetWithBlur(
+                context: context,
+                builder: (context) {
+                  return NoteForm(
+                    server: ref.watch(focusedServerProvider),
+                  );
+                },
+              );
+            },
+            gradate: true,
+          ),
+        ],
+      ),
     );
   }
 }

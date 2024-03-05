@@ -23,9 +23,9 @@ class Eatpencil extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      routerDelegate: goRouter.routerDelegate,
-      routeInformationParser: goRouter.routeInformationParser,
-      routeInformationProvider: goRouter.routeInformationProvider,
+      routerDelegate: ref.watch(goRouterProvider).routerDelegate,
+      routeInformationParser: ref.watch(goRouterProvider).routeInformationParser,
+      routeInformationProvider: ref.watch(goRouterProvider).routeInformationProvider,
       theme: ThemeData(
         colorScheme: theme(ref).toColorScheme(),
         fontFamilyFallback: const ["Inter", "NotoSansJP"],
