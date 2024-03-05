@@ -1,4 +1,4 @@
-import 'package:eatpencil/components/bottom_buttons_bar.dart';
+import 'package:eatpencil/components/general/bottom_buttons_bar.dart';
 import 'package:eatpencil/components/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/note_form.dart';
 import 'package:eatpencil/components/timeline.dart';
