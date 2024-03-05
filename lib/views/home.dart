@@ -86,7 +86,7 @@ class HomePage extends ConsumerWidget {
                 context: context,
                 builder: (context) {
                   return NoteForm(
-                    server: ref.watch(focusedServerProvider),
+                    server: ref.watch(focusedServerProvider)!,
                   );
                 },
               );

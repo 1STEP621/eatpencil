@@ -102,6 +102,6 @@ class AuthPageState extends ConsumerState<AuthPage> {
             token: await MisskeyServer().checkMiAuthToken(host, session),
           ),
         );
-    if (mounted) context.pop();
+    if (mounted) context.go("/home");
   }
 }

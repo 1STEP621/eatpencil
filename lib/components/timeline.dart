@@ -67,8 +67,8 @@ class TimelineState extends ConsumerState<Timeline> {
 
   @override
   void initState() {
-    initNotes(ref.read(focusedServerProvider));
-    connectStream(ref.read(focusedServerProvider));
+    initNotes(ref.read(focusedServerProvider)!);
+    connectStream(ref.read(focusedServerProvider)!);
     super.initState();
   }
 
@@ -77,7 +77,7 @@ class TimelineState extends ConsumerState<Timeline> {
     ref.listen(focusedServerProvider, (prevServer, server) {
       if (prevServer != null) cleanConnections(prevServer);
       cleanNotes();
-      initNotes(server);
+      initNotes(server!);
       connectStream(server);
     });
 
@@ -103,7 +103,7 @@ class TimelineState extends ConsumerState<Timeline> {
                 ).animate(animation),
                 child: NoteCard(
                   note: _notes[index],
-                  server: ref.read(focusedServerProvider),
+                  server: ref.read(focusedServerProvider)!,
                 ),
               );
             },

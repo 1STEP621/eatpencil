@@ -1,6 +1,7 @@
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/views/auth.dart';
 import 'package:eatpencil/views/home.dart';
+import 'package:eatpencil/views/loading.dart';
 import 'package:eatpencil/views/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,8 +9,19 @@ import 'package:go_router/go_router.dart';
 
 final goRouterProvider = Provider(
   (ref) => GoRouter(
-    initialLocation: "/home",
+    initialLocation: "/",
     routes: [
+      // サーバー情報を取得し終わるまでロード画面を見せる
+      GoRoute(
+        path: "/",
+        name: "/",
+        pageBuilder: (context, state) {
+          return MaterialPage(
+            key: state.pageKey,
+            child: const LoadingPage(),
+          );
+        },
+      ),
       GoRoute(
         path: "/welcome",
         name: "/welcome",
