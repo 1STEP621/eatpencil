@@ -85,35 +85,44 @@ class TimelineState extends ConsumerState<Timeline> {
       connectStream(server);
     });
 
-    return Column(
-      children: [
-        if (_isFetching) ...[
-          const Gap(40),
-          const LoadingCircle(),
-          const Gap(40),
-        ],
-        Expanded(
-          child: AnimatedList(
-            key: _listKey,
-            initialItemCount: _notes.length,
-            itemBuilder: (
-              BuildContext context,
-              int index,
-              Animation<double> animation,
-            ) {
-              return SizeTransition(
-                sizeFactor: CurveTween(
-                  curve: const Cubic(0.23, 1, 0.32, 1),
-                ).animate(animation),
-                child: NoteCard(
-                  note: _notes[index],
-                  server: ref.read(focusedServerProvider)!,
-                ),
-              );
-            },
+    return RefreshIndicator(
+      onRefresh: () async {
+        cleanConnections(ref.read(focusedServerProvider)!);
+        cleanNotes();
+        initNotes(ref.read(focusedServerProvider)!);
+        connectStream(ref.read(focusedServerProvider)!);
+      },
+
+      child: Column(
+        children: [
+          if (_isFetching) ...[
+            const Gap(40),
+            const LoadingCircle(),
+            const Gap(40),
+          ],
+          Expanded(
+            child: AnimatedList(
+              key: _listKey,
+              initialItemCount: _notes.length,
+              itemBuilder: (
+                BuildContext context,
+                int index,
+                Animation<double> animation,
+              ) {
+                return SizeTransition(
+                  sizeFactor: CurveTween(
+                    curve: const Cubic(0.23, 1, 0.32, 1),
+                  ).animate(animation),
+                  child: NoteCard(
+                    note: _notes[index],
+                    server: ref.read(focusedServerProvider)!,
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
