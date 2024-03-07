@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:eatpencil/components/bottom_sheet_menu.dart';
+import 'package:eatpencil/components/general/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/column_with_gap.dart';
 import 'package:eatpencil/components/general/image_with_blurhash.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';

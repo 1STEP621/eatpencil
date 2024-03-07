@@ -1,5 +1,5 @@
 import 'package:eatpencil/components/general/animated_list_with_controller.dart';
-import 'package:eatpencil/components/loading_circle.dart';
+import 'package:eatpencil/components/general/loading_circle.dart';
 import 'package:eatpencil/components/note.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';

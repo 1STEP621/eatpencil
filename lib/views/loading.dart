@@ -1,4 +1,4 @@
-import 'package:eatpencil/components/loading_circle.dart';
+import 'package:eatpencil/components/general/loading_circle.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/router.dart';
 import 'package:flutter/material.dart';
