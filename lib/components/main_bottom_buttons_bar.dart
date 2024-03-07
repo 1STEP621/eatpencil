@@ -23,13 +23,15 @@ class MainBottomButtonsBar extends ConsumerWidget {
         BottomButtonsBarEntry(
           icon: TablerIcons.home,
           label: "Home",
-          onTap: () {},
+          onTap: () {
+            context.replace("/home");
+          },
         ),
         BottomButtonsBarEntry(
           icon: TablerIcons.bell,
           label: "Notifications",
           onTap: () {
-            context.push("/notifications");
+            context.replace("/notifications");
           },
         ),
         BottomButtonsBarEntry(
