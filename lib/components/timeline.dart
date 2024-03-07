@@ -1,3 +1,4 @@
+import 'package:eatpencil/components/general/animated_list_with_controller.dart';
 import 'package:eatpencil/components/loading_circle.dart';
 import 'package:eatpencil/components/note.dart';
 import 'package:eatpencil/providers.dart';
@@ -10,45 +11,29 @@ class Timeline extends ConsumerStatefulWidget {
   const Timeline({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() {
-    return TimelineState();
-  }
+  ConsumerState<Timeline> createState() => _TimelineState();
 }
 
-class TimelineState extends ConsumerState<Timeline> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  final List<Note> _notes = [];
-  bool _isFetching = true;
+class _TimelineState extends ConsumerState<Timeline> {
+  final _controller = AnimatedListController<Note>();
+  bool _isFetching = false;
 
   void cleanConnections(Misskey server) {
     server.streamingService.close();
   }
 
   void cleanNotes() {
-    _notes.clear();
-    _listKey.currentState?.removeAllItems(
-      (context, animation) => SizeTransition(
-        sizeFactor: animation,
-        child: const SizedBox(),
-      ),
-    );
+    _controller.clear();
   }
 
   void initNotes(Misskey server) {
     setState(() {
       _isFetching = true;
     });
-    server.notes
-        .localTimeline(
+    server.notes.localTimeline(
       const NotesLocalTimelineRequest(limit: 50),
-    )
-        .then((initialNotes) {
-      _notes.addAll(initialNotes);
-      _listKey.currentState?.insertAllItems(
-        _notes.length - initialNotes.length,
-        initialNotes.length,
-        duration: const Duration(milliseconds: 700),
-      );
+    ).then((initialNotes) {
+      _controller.addAll(initialNotes.toList());
       setState(() {
         _isFetching = false;
       });
@@ -60,11 +45,7 @@ class TimelineState extends ConsumerState<Timeline> {
     server.localTimelineStream(
       parameter: const LocalTimelineParameter(),
       onNoteReceived: (Note newNote) {
-        _notes.insert(0, newNote);
-        _listKey.currentState?.insertItem(
-          0,
-          duration: const Duration(milliseconds: 700),
-        );
+        _controller.addAll([newNote]);
       },
     );
   }
@@ -92,7 +73,6 @@ class TimelineState extends ConsumerState<Timeline> {
         initNotes(ref.read(focusedServerProvider)!);
         connectStream(ref.read(focusedServerProvider)!);
       },
-
       child: Column(
         children: [
           if (_isFetching) ...[
@@ -101,22 +81,12 @@ class TimelineState extends ConsumerState<Timeline> {
             const Gap(40),
           ],
           Expanded(
-            child: AnimatedList(
-              key: _listKey,
-              initialItemCount: _notes.length,
-              itemBuilder: (
-                BuildContext context,
-                int index,
-                Animation<double> animation,
-              ) {
-                return SizeTransition(
-                  sizeFactor: CurveTween(
-                    curve: const Cubic(0.23, 1, 0.32, 1),
-                  ).animate(animation),
-                  child: NoteCard(
-                    note: _notes[index],
-                    server: ref.read(focusedServerProvider)!,
-                  ),
+            child: AnimatedListWithController<Note>(
+              controller: _controller,
+              itemBuilder: (context, note, animation) {
+                return NoteCard(
+                  note: note,
+                  server: ref.read(focusedServerProvider)!,
                 );
               },
             ),
