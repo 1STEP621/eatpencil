@@ -9,18 +9,12 @@ class MainAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppBar(
-      title: FutureBuilder(
-        future: ref.watch(focusedServerProvider)!.meta(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return CachedNetworkImage(
-              imageUrl: snapshot.data!.iconUrl.toString(),
+      title: ref.watch(metaProvider).value == null
+          ? const SizedBox.shrink()
+          : CachedNetworkImage(
+              imageUrl: ref.watch(metaProvider).value!.iconUrl.toString(),
               width: 30,
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
+            ),
       centerTitle: true,
     );
   }

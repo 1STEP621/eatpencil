@@ -67,3 +67,7 @@ dynamic toMap(Misskey server) {
 }
 
 final focusedServerProvider = StateProvider((ref) => ref.watch(serversProvider).value?.firstOrNull);
+
+final metaProvider = FutureProvider<MetaResponse>((ref) async {
+  return ref.watch(focusedServerProvider)!.meta();
+});
