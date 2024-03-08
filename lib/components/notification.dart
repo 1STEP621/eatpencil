@@ -26,6 +26,8 @@ class NotificationCard extends ConsumerWidget {
     final leftContent = switch (notification.type) {
       NotificationType.achievementEarned => const IconWithBackground(
           icon: TablerIcons.trophy,
+          size: 45,
+          backgroundColor: eventOther,
         ),
       // TODO: https://github.com/shiosyakeyakini-info/misskey_dart/pull/47がマージされ次第修正
       NotificationType.app => notification.customIcon == null
@@ -110,6 +112,7 @@ class NotificationCard extends ConsumerWidget {
       NotificationType.roleAssigned => const IconWithBackground(
           icon: TablerIcons.user_plus,
           backgroundColor: eventFollow,
+          size: 45,
         ),
       NotificationType.test => const IconWithBackground(
           icon: TablerIcons.flask,
