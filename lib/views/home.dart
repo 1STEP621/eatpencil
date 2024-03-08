@@ -40,10 +40,10 @@ class HomePage extends ConsumerWidget {
             onTap: () {},
           ),
           BottomButtonsBarEntry(
-            icon: TablerIcons.home,
-            label: "Home",
+            icon: TablerIcons.search,
+            label: "Search",
             onTap: () {
-              context.push("/home");
+              context.push("/search");
             },
           ),
           BottomButtonsBarEntry(

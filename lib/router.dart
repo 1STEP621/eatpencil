@@ -2,6 +2,7 @@ import 'package:eatpencil/views/auth.dart';
 import 'package:eatpencil/views/home.dart';
 import 'package:eatpencil/views/loading.dart';
 import 'package:eatpencil/views/notifications.dart';
+import 'package:eatpencil/views/search.dart';
 import 'package:eatpencil/views/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,6 +30,16 @@ final goRouterProvider = Provider(
           return MaterialPage(
             key: state.pageKey,
             child: const WelcomePage(),
+          );
+        },
+      ),
+      GoRoute(
+        path: "/search",
+        name: "search",
+        pageBuilder: (context, state) {
+          return MaterialPage(
+            key: state.pageKey,
+            child: const SearchPage(),
           );
         },
       ),
