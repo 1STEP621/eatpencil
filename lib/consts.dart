@@ -180,6 +180,14 @@ final themes = {
   )
 };
 
+const eventFollow = Color(0xff36aed2);
+const eventRenote = Color(0xff36d298);
+const eventReply = Color(0xff007aff);
+const eventReactionHeart = Color(0xffdd2e44);
+const eventReaction = Color(0xffe99a0b);
+const eventAchievement = Color(0xffcb9a11);
+const eventOther = Color(0xff88a6b7);
+
 Color rgb(int r, int g, int b) {
   return Color.fromRGBO(r, g, b, 1.0);
 }

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:eatpencil/components/avatar.dart';
 import 'package:eatpencil/components/general/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/general/column_with_gap.dart';
 import 'package:eatpencil/components/general/image_with_blurhash.dart';
@@ -79,19 +80,7 @@ class NoteContent extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if ((depth ?? 0) < 2)
-                Column(
-                  children: [
-                    ClipOval(
-                      child: ImageWithBlurHash(
-                        imageUrl: note.user.avatarUrl.toString(),
-                        blurHash: note.user.avatarBlurhash,
-                        fit: BoxFit.cover,
-                        width: 45,
-                        height: 45,
-                      ),
-                    ),
-                  ],
-                ),
+                Avatar(user: note.user),
               Expanded(
                 child: ColumnWithGap(
                   crossAxisAlignment: CrossAxisAlignment.start,
