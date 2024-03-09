@@ -3,6 +3,7 @@ import 'package:eatpencil/components/emoji.dart';
 import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 import 'package:eatpencil/components/general/icon_with_background.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
+import 'package:eatpencil/components/mfm.dart';
 import 'package:eatpencil/consts.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/utils/get_note_summary.dart';
@@ -125,7 +126,7 @@ class NotificationCard extends ConsumerWidget {
         ),
       _ => throw UnimplementedError(),
     };
-    final headerContent = Text(
+    final headerContent = CustomSimpleMfm(
       originUser?.name ??
           switch (notification.type) {
             NotificationType.achievementEarned => "実績を解除しました",
@@ -140,8 +141,9 @@ class NotificationCard extends ConsumerWidget {
         fontWeight: FontWeight.bold,
         overflow: TextOverflow.ellipsis,
       ),
+      overrideEmojis: notification.user?.emojis,
     );
-    final mainContent = Text(
+    final mainContent = CustomSimpleMfm(
       getNoteSummary(originNote)?.replaceAll("\n", " ") ??
           switch (notification.type) {
             NotificationType.achievementEarned => notification.achievement!,
@@ -158,7 +160,6 @@ class NotificationCard extends ConsumerWidget {
         color: theme(ref).fg,
         overflow: TextOverflow.ellipsis,
       ),
-      maxLines: 1,
     );
 
     return Container(

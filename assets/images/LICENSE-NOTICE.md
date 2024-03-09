@@ -1,0 +1,3 @@
+- dummy.png
+  - GNU Affero General Public License v3.0
+  - syuilo and misskey-project

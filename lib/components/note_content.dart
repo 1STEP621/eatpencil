@@ -59,11 +59,12 @@ class NoteContent extends ConsumerWidget {
                     size: 15,
                   ),
                   Expanded(
-                    child: Text(
+                    child: CustomSimpleMfm(
                       "${note.user.name}がリノート",
+                      overrideEmojis: note.emojis,
                       style: TextStyle(
                         color: theme(ref).renote,
-                        overflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   )
@@ -94,7 +95,7 @@ class NoteContent extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Flexible(
-                                child: Text(
+                                child: CustomSimpleMfm(
                                   note.user.name ?? "",
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
@@ -157,7 +158,10 @@ class NoteContent extends ConsumerWidget {
                       ],
                     ),
                     SelectionArea(
-                      child: NormalMfm(note.text ?? "", overrideEmojis: note.emojis),
+                      child: CustomNormalMfm(
+                        note.text ?? "",
+                        overrideEmojis: note.emojis,
+                      ),
                     ),
                     if (0 < imageFiles.length + videoFiles.length)
                       GridView.count(

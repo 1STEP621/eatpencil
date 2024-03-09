@@ -1,4 +1,3 @@
-import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -6,12 +5,13 @@ import 'package:flutter_highlight/themes/atom-one-dark.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mfm/mfm.dart';
 import 'package:twemoji/twemoji.dart';
+import 'package:eatpencil/components/note_emoji.dart';
 
-class NormalMfm extends ConsumerWidget {
+class CustomNormalMfm extends ConsumerWidget {
   final String text;
   final Map<String, String>? overrideEmojis;
 
-  const NormalMfm(this.text, {super.key, this.overrideEmojis});
+  const CustomNormalMfm(this.text, {super.key, this.overrideEmojis});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,16 +19,11 @@ class NormalMfm extends ConsumerWidget {
       mfmText: text,
       style: const TextStyle(fontSize: kDefaultFontSize),
       emojiBuilder: (context, emojiName, style) {
-        final emojiUrl = overrideEmojis == null
-            ? overrideEmojis![emojiName]
-            : ref.watch(emojisMapProvider).value?[emojiName]?.url.toString();
-
-        return emojiUrl == null
-            ? Text(emojiName, style: style)
-            : CustomCachedNetworkImage(
-                imageUrl: emojiUrl.toString(),
-                height: (style?.fontSize ?? kDefaultFontSize) * 2,
-              );
+        return NoteEmojiImage(
+          emojiName: emojiName,
+          overrideEmojis: overrideEmojis,
+          style: style,
+        );
       },
       unicodeEmojiBuilder: (context, emoji, style) {
         return TwemojiTextSpan(
@@ -75,3 +70,36 @@ class NormalMfm extends ConsumerWidget {
     );
   }
 }
+
+class CustomSimpleMfm extends StatelessWidget {
+  final String text;
+  final Map<String, String>? overrideEmojis;
+  final TextStyle style;
+
+  const CustomSimpleMfm(this.text, {super.key, this.overrideEmojis, this.style = const TextStyle()});
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleMfm(
+      text,
+      style: style.copyWith(fontSize: kDefaultFontSize),
+      emojiBuilder: (context, emojiName, style) {
+        return NoteEmojiImage(
+          emojiName: emojiName,
+          overrideEmojis: overrideEmojis,
+          style: style,
+          emojiMultiplier: 1.3,
+        );
+      },
+      unicodeEmojiBuilder: (context, emoji, style) {
+        return TwemojiTextSpan(
+          text: emoji,
+          twemojiFormat: TwemojiFormat.svg,
+          emojiFontMultiplier: 1.3,
+          style: style,
+        );
+      },
+    );
+  }
+}
+

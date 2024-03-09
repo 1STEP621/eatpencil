@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,13 @@ class EmojiImage extends ConsumerWidget {
   final Map<String, String> additionalEmojis;
   final double height;
 
-  const EmojiImage(
-      {super.key, required this.shortcode, this.serverUrl = ".", this.additionalEmojis = const {}, this.height = 22});
+  const EmojiImage({
+    super.key,
+    required this.shortcode,
+    this.serverUrl = ".",
+    this.additionalEmojis = const {},
+    this.height = 22,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +30,10 @@ class EmojiImage extends ConsumerWidget {
         height: height,
       );
     } else {
-      return Text(shortcode);
+      return Image.asset(
+        "assets/images/dummy.png",
+        height: height,
+      );
     }
   }
 }
