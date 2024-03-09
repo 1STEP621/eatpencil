@@ -1,7 +1,9 @@
 import 'package:eatpencil/components/avatar_with_badge.dart';
+import 'package:eatpencil/components/emoji.dart';
 import 'package:eatpencil/components/general/icon_with_background.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
 import 'package:eatpencil/consts.dart';
+import 'package:eatpencil/utils/get_part_from_reaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -83,9 +85,11 @@ class NotificationCard extends ConsumerWidget {
         ),
       NotificationType.reaction => AvatarWithBadge(
           user: originUser!,
-          badge: const IconWithBackground(
-            icon: TablerIcons.plus,
-            backgroundColor: eventReaction,
+          badge: EmojiImage(
+            shortcode: getShortcode(notification.reaction!),
+            serverUrl: getServerUrl(notification.reaction!),
+            additionalEmojis: notification.note!.reactionEmojis,
+            height: 22,
           ),
         ),
       NotificationType.receiveFollowRequest => AvatarWithBadge(

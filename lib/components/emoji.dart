@@ -5,20 +5,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EmojiImage extends ConsumerWidget {
   final String shortcode;
-  final String serverUrl;
+  final String? serverUrl;
   final Map<String, String> additionalEmojis;
+  final double height;
 
-  const EmojiImage({super.key, required this.shortcode, this.serverUrl = ".", this.additionalEmojis = const {}});
+  const EmojiImage({super.key, required this.shortcode, this.serverUrl = ".", this.additionalEmojis = const {}, this.height = 22});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final emojiUrl = serverUrl == "."
+    final emojiUrl = (serverUrl ?? ".") == "."
         ? (ref.watch(emojisMapProvider).value?[shortcode]?.url.toString())
         : additionalEmojis["$shortcode@$serverUrl"];
+
     if (emojiUrl != null) {
       return CustomCachedNetworkImage(
         imageUrl: emojiUrl.toString(),
-        height: 22,
+        height: height,
       );
     } else {
       return Text(shortcode);

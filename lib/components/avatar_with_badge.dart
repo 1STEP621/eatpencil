@@ -28,7 +28,10 @@ class AvatarWithBadge extends ConsumerWidget {
                 child: SizedBox(
                   width: 22,
                   height: 22,
-                  child: badge,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: badge,
+                  )
                 ),
               )
             ),
