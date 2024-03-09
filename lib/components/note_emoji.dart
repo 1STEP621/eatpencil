@@ -18,7 +18,7 @@ class NoteEmojiImage extends ConsumerWidget {
         : overrideEmojis![emojiName];
 
     return emojiUrl == null
-        ? Text(emojiName, style: style)
+        ? Text(":$emojiName:", style: style)
         : CustomCachedNetworkImage(
             imageUrl: emojiUrl.toString(),
             height: (style?.fontSize ?? kDefaultFontSize) * emojiMultiplier,

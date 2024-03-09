@@ -53,7 +53,6 @@ class CustomNormalMfm extends ConsumerWidget {
       defaultBorderColor: theme(ref).accent,
       hashtagStyle: TextStyle(
         color: theme(ref).hashtag,
-        fontWeight: FontWeight.bold,
       ),
       inlineCodeBuilder: (context, text, style) {
         return Text(
