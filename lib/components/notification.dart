@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eatpencil/components/avatar_with_badge.dart';
 import 'package:eatpencil/components/general/icon_with_background.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
