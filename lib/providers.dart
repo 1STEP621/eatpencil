@@ -71,3 +71,12 @@ final focusedServerProvider = StateProvider((ref) => ref.watch(serversProvider).
 final metaProvider = FutureProvider<MetaResponse>((ref) async {
   return ref.watch(focusedServerProvider)!.meta();
 });
+
+final emojisProvider = FutureProvider<EmojisResponse>((ref) async {
+  return ref.watch(focusedServerProvider)!.emojis();
+});
+
+final emojisMapProvider = FutureProvider<Map<String, Emoji>>((ref) async {
+  final emojis = ref.watch(emojisProvider).value;
+  return Map.fromEntries(emojis!.emojis.map((e) => MapEntry(e.name, e)));
+});

@@ -11,6 +11,7 @@ import 'package:eatpencil/providers.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:eatpencil/utils/get_note_summary.dart';
+import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 
 class NotificationCard extends ConsumerWidget {
   final INotificationsResponse notification;
@@ -36,7 +37,7 @@ class NotificationCard extends ConsumerWidget {
               size: 45,
               backgroundColor: eventOther,
             )
-          : CachedNetworkImage(
+          : CustomCachedNetworkImage(
               imageUrl: notification.customIcon.toString(),
             ),
       NotificationType.follow => AvatarWithBadge(

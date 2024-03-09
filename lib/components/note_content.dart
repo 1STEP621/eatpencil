@@ -13,10 +13,10 @@ import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mfm/mfm.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:eatpencil/components/mfm.dart';
 
 class NoteContent extends ConsumerWidget {
   final Note note;
@@ -158,9 +158,7 @@ class NoteContent extends ConsumerWidget {
                       ],
                     ),
                     SelectionArea(
-                      child: Mfm(
-                        mfmText: note.text ?? "",
-                      ),
+                      child: NormalMfm(note.text ?? "", overrideEmojis: note.emojis),
                     ),
                     if (0 < imageFiles.length + videoFiles.length)
                       GridView.count(

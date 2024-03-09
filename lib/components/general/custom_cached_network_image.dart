@@ -1,24 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 
-class ImageWithBlurHash extends CustomCachedNetworkImage {
-  ImageWithBlurHash({
+class CustomCachedNetworkImage extends CachedNetworkImage {
+  CustomCachedNetworkImage({
     super.key,
     required super.imageUrl,
-    required String? blurHash,
     super.httpHeaders,
     super.imageBuilder,
     super.progressIndicatorBuilder,
     super.errorWidget,
-    super.fadeOutDuration,
+    super.fadeOutDuration = Duration.zero,
     super.fadeOutCurve,
-    super.fadeInDuration,
+    super.fadeInDuration = Duration.zero,
     super.fadeInCurve,
     super.width,
     super.height,
     super.fit,
-    super.alignment,
+    super.alignment = Alignment.topLeft,
     super.repeat,
     super.matchTextDirection,
     super.cacheManager,
@@ -26,7 +24,8 @@ class ImageWithBlurHash extends CustomCachedNetworkImage {
     super.color,
     super.filterQuality,
     super.colorBlendMode,
-    super.placeholderFadeInDuration,
+    PlaceholderWidgetBuilder? placeholder,
+    super.placeholderFadeInDuration = Duration.zero,
     super.memCacheWidth,
     super.memCacheHeight,
     super.cacheKey,
@@ -35,12 +34,6 @@ class ImageWithBlurHash extends CustomCachedNetworkImage {
     super.errorListener,
     super.imageRenderMethodForWeb,
   }) : super(
-          placeholder: blurHash == null
-              ? null
-              : (context, url) => BlurHash(
-                    hash: blurHash,
-                    imageFit: fit ?? BoxFit.fill,
-                    duration: fadeInDuration,
-                  ),
-        );
+    placeholder: placeholder ?? (context, url) => const SizedBox.shrink(),
+  );
 }
