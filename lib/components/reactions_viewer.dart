@@ -29,8 +29,9 @@ class ReactionsViewer extends ConsumerWidget {
             child: Container(
               padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
-                color: theme(ref).buttonBg,
+                color: note.myReaction == reaction.key ? theme(ref).accentedBg : theme(ref).buttonBg,
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
+                border: note.myReaction == reaction.key ? Border.all(color: theme(ref).accent, width: 1) : null,
               ),
               child: RowWithGap(
                 gap: 5,
@@ -40,7 +41,12 @@ class ReactionsViewer extends ConsumerWidget {
                     emoji: reaction.key,
                     additionalEmojis: note.reactionEmojis,
                   ),
-                  Text(reaction.value.toString()),
+                  Text(
+                    reaction.value.toString(),
+                    style: TextStyle(
+                      color: note.myReaction == reaction.key ? theme(ref).accent : theme(ref).fg,
+                    ),
+                  ),
                 ],
               ),
             ),
