@@ -32,8 +32,8 @@ class _TimelineState extends ConsumerState<Timeline> {
       _isFetching = true;
     });
     server.notes
-        .localTimeline(
-      const NotesLocalTimelineRequest(limit: 50),
+        .hybridTimeline(
+      const NotesHybridTimelineRequest(limit: 50),
     )
         .then((initialNotes) {
       _controller.addAll(initialNotes.toList());
@@ -48,8 +48,8 @@ class _TimelineState extends ConsumerState<Timeline> {
 
   void connectStream(Misskey server) {
     server.streamingService.startStreaming();
-    _stream = server.localTimelineStream(
-      parameter: const LocalTimelineParameter(),
+    _stream = server.hybridTimelineStream(
+      parameter: const HybridTimelineParameter(),
       onNoteReceived: (newNote) {
         _controller.addAll([newNote]);
         _stream?.subNote(newNote.id);
