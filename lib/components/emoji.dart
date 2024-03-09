@@ -1,36 +1,28 @@
-import 'package:eatpencil/components/general/custom_cached_network_image.dart';
-import 'package:eatpencil/providers.dart';
+import 'package:eatpencil/components/custom_emoji.dart';
+import 'package:eatpencil/components/unicode_emoji.dart';
+import 'package:eatpencil/utils/get_part_from_reaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EmojiImage extends ConsumerWidget {
-  final String shortcode;
-  final String? serverUrl;
-  final Map<String, String> additionalEmojis;
-  final double height;
+  final String emoji;
+  final double size;
+  final Map<String, String>? additionalEmojis;
 
-  const EmojiImage({
-    super.key,
-    required this.shortcode,
-    this.serverUrl = ".",
-    this.additionalEmojis = const {},
-    this.height = 22,
-  });
+  const EmojiImage({super.key, required this.emoji, this.size = 22, this.additionalEmojis = const {}});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final emojiUrl = (serverUrl ?? ".") == "."
-        ? (ref.watch(emojisMapProvider).value?[shortcode]?.url.toString())
-        : additionalEmojis["$shortcode@$serverUrl"];
-
-    return emojiUrl == null
-        ? Image.asset(
-            "assets/images/dummy.png",
-            height: height,
+    return emoji.contains(":")
+        ? CustomEmoji(
+            shortcode: getShortcode(emoji),
+            serverUrl: getServerUrl(emoji),
+            additionalEmojis: additionalEmojis ?? {},
+            height: size,
           )
-        : CustomCachedNetworkImage(
-            imageUrl: emojiUrl.toString(),
-            height: height,
+        : UnicodeEmoji(
+            emoji: emoji,
+            size: size,
           );
   }
 }

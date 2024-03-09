@@ -1,5 +1,4 @@
 import 'package:eatpencil/components/avatar_with_badge.dart';
-import 'package:eatpencil/components/emoji.dart';
 import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 import 'package:eatpencil/components/general/icon_with_background.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
@@ -7,13 +6,13 @@ import 'package:eatpencil/components/mfm.dart';
 import 'package:eatpencil/consts.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/utils/get_note_summary.dart';
-import 'package:eatpencil/utils/get_part_from_reaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
+import 'package:eatpencil/components/emoji.dart';
 
 class NotificationCard extends ConsumerWidget {
   final INotificationsResponse notification;
@@ -87,10 +86,9 @@ class NotificationCard extends ConsumerWidget {
       NotificationType.reaction => AvatarWithBadge(
           user: originUser!,
           badge: EmojiImage(
-            shortcode: getShortcode(notification.reaction!),
-            serverUrl: getServerUrl(notification.reaction!),
+            emoji: notification.reaction!,
             additionalEmojis: notification.note!.reactionEmojis,
-            height: 22,
+            size: 22,
           ),
         ),
       NotificationType.receiveFollowRequest => AvatarWithBadge(

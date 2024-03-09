@@ -1,10 +1,9 @@
-import 'package:eatpencil/components/emoji.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
 import 'package:eatpencil/providers.dart';
-import 'package:eatpencil/utils/get_part_from_reaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misskey_dart/misskey_dart.dart';
+import 'package:eatpencil/components/emoji.dart';
 
 class ReactionsViewer extends ConsumerWidget {
   final Note note;
@@ -38,8 +37,7 @@ class ReactionsViewer extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   EmojiImage(
-                    shortcode: getShortcode(reaction.key),
-                    serverUrl: getServerUrl(reaction.key),
+                    emoji: reaction.key,
                     additionalEmojis: note.reactionEmojis,
                   ),
                   Text(reaction.value.toString()),
