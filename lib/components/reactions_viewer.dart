@@ -27,7 +27,7 @@ class ReactionsViewer extends ConsumerWidget {
               onReactionTap(reaction.key);
             },
             child: Container(
-              padding: const EdgeInsets.all(7),
+              padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: note.myReaction == reaction.key ? theme(ref).accentedBg : theme(ref).buttonBg,
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
@@ -40,6 +40,7 @@ class ReactionsViewer extends ConsumerWidget {
                   EmojiImage(
                     emoji: reaction.key,
                     additionalEmojis: note.reactionEmojis,
+                    size: 16,
                   ),
                   Text(
                     reaction.value.toString(),
