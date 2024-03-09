@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
