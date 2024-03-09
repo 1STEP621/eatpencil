@@ -1,31 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AnimatedListController<T> {
+  late final List<T> Function() contents;
   late final void Function(List<T>) addAll;
   late final void Function(T) remove;
   late final void Function(int) removeTop;
   late final void Function(int) removeBottom;
+  late final void Function(T, T) update;
   late final void Function() clear;
-
-  void _setAddAllCallee(void Function(List<T>) to) {
-    addAll = to;
-  }
-
-  void _setRemoveCallee(void Function(T) to) {
-    remove = to;
-  }
-
-  void _setRemoveTopCallee(void Function(int) to) {
-    removeTop = to;
-  }
-
-  void _setRemoveBottomCallee(void Function(int) to) {
-    removeBottom = to;
-  }
-
-  void _setClearCallee(void Function() to) {
-    clear = to;
-  }
 }
 
 class AnimatedListWithController<T> extends StatefulWidget {
@@ -48,15 +30,16 @@ class _AnimatedListWithControllerState<T> extends State<AnimatedListWithControll
 
   @override
   void initState() {
-    widget.controller._setAddAllCallee((contents) {
+    widget.controller.contents = () => _items;
+    widget.controller.addAll = (contents) {
       _items.insertAll(0, contents);
       _listKey.currentState?.insertAllItems(
         0,
         contents.length,
         duration: const Duration(milliseconds: 700),
       );
-    });
-    widget.controller._setRemoveCallee((content) {
+    };
+    widget.controller.remove = (content) {
       final index = _items.indexWhere((e) => e == content);
       _items.removeAt(index);
       _listKey.currentState?.removeItem(
@@ -68,8 +51,8 @@ class _AnimatedListWithControllerState<T> extends State<AnimatedListWithControll
           );
         },
       );
-    });
-    widget.controller._setRemoveTopCallee((count) {
+    };
+    widget.controller.removeTop = (count) {
       _items.removeRange(0, count);
       _listKey.currentState?.removeAllItems(
         (context, animation) {
@@ -79,8 +62,8 @@ class _AnimatedListWithControllerState<T> extends State<AnimatedListWithControll
           );
         },
       );
-    });
-    widget.controller._setRemoveBottomCallee((count) {
+    };
+    widget.controller.removeBottom = (count) {
       _items.removeRange(_items.length - count, _items.length);
       _listKey.currentState?.removeAllItems(
         (context, animation) {
@@ -90,8 +73,14 @@ class _AnimatedListWithControllerState<T> extends State<AnimatedListWithControll
           );
         },
       );
-    });
-    widget.controller._setClearCallee(() {
+    };
+    widget.controller.update = (from, to) {
+      final index = _items.indexWhere((e) => e == from);
+      setState(() {
+        _items[index] = to;
+      });
+    };
+    widget.controller.clear = () {
       _items.clear();
       _listKey.currentState?.removeAllItems((context, animation) {
         return SizeTransition(
@@ -99,7 +88,7 @@ class _AnimatedListWithControllerState<T> extends State<AnimatedListWithControll
           child: const SizedBox(),
         );
       });
-    });
+    };
     super.initState();
   }
 

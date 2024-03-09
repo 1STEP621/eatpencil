@@ -81,3 +81,7 @@ final emojisMapProvider = FutureProvider<Map<String, Emoji>?>((ref) async {
   if (emojis == null) return null;
   return Map.fromEntries(emojis.emojis.map((e) => MapEntry(e.name, e)));
 });
+
+final iProvider = FutureProvider<MeDetailed>((ref) async {
+  return ref.watch(focusedServerProvider)!.i.i();
+});

@@ -16,6 +16,7 @@ class Timeline extends ConsumerStatefulWidget {
 
 class _TimelineState extends ConsumerState<Timeline> {
   final _controller = AnimatedListController<Note>();
+  SocketController? _stream;
   bool _isFetching = false;
 
   void cleanConnections(Misskey server) {
@@ -36,6 +37,9 @@ class _TimelineState extends ConsumerState<Timeline> {
     )
         .then((initialNotes) {
       _controller.addAll(initialNotes.toList());
+      for (final note in _controller.contents()) {
+        _stream?.subNote(note.id);
+      }
       setState(() {
         _isFetching = false;
       });
@@ -44,18 +48,68 @@ class _TimelineState extends ConsumerState<Timeline> {
 
   void connectStream(Misskey server) {
     server.streamingService.startStreaming();
-    server.localTimelineStream(
+    _stream = server.localTimelineStream(
       parameter: const LocalTimelineParameter(),
-      onNoteReceived: (Note newNote) {
+      onNoteReceived: (newNote) {
         _controller.addAll([newNote]);
+        _stream?.subNote(newNote.id);
+      },
+      onReacted: (id, reaction) {
+        final note = _controller.contents().firstWhere((note) => note.id == id);
+        Map<String, int> reactions = {...note.reactions};
+        reactions.update(reaction.reaction, (count) => count + 1, ifAbsent: () => 1);
+        Map<String, String> reactionEmojis = {...note.reactionEmojis};
+        if (reaction.emoji != null) {
+          reactionEmojis[reaction.emoji!.name] = reaction.emoji!.url;
+        }
+        String? myReaction = note.myReaction;
+        if (reaction.userId == ref.watch(iProvider).value?.id) {
+          myReaction = reaction.reaction;
+        }
+        _controller.update(
+          note,
+          note.copyWith(
+            reactions: reactions,
+            reactionEmojis: reactionEmojis,
+            myReaction: myReaction,
+          ),
+        );
+      },
+      onUnreacted: (id, reaction) {
+        final note = _controller.contents().firstWhere((note) => note.id == id);
+        Map<String, int> reactions = {...note.reactions};
+        reactions.update(reaction.reaction, (count) => count - 1, ifAbsent: () => 0);
+        reactions.removeWhere((_, count) => count == 0);
+        Map<String, String> reactionEmojis = {...note.reactionEmojis};
+        if (reactions[reaction.reaction] == 0) {
+          reactions.remove(reaction.reaction);
+          reactionEmojis.remove(reaction.emoji!.name);
+        }
+        String? myReaction = note.myReaction;
+        if (reaction.userId == ref.watch(iProvider).value?.id) {
+          myReaction = null;
+        }
+        _controller.update(
+          note,
+          note.copyWith(
+            reactions: reactions,
+            reactionEmojis: reactionEmojis,
+            myReaction: myReaction,
+          ),
+        );
+      },
+      onDeleted: (id, _) {
+        final note = _controller.contents().firstWhere((note) => note.id == id);
+        _controller.remove(note);
+        _stream?.unsubNote(note.id);
       },
     );
   }
 
   @override
   void initState() {
-    initNotes(ref.read(focusedServerProvider)!);
     connectStream(ref.read(focusedServerProvider)!);
+    initNotes(ref.read(focusedServerProvider)!);
     super.initState();
   }
 
@@ -64,16 +118,16 @@ class _TimelineState extends ConsumerState<Timeline> {
     ref.listen(focusedServerProvider, (prevServer, server) {
       if (prevServer != null) cleanConnections(prevServer);
       cleanNotes();
-      initNotes(server!);
-      connectStream(server);
+      connectStream(server!);
+      initNotes(server);
     });
 
     return RefreshIndicator(
       onRefresh: () async {
         cleanConnections(ref.read(focusedServerProvider)!);
         cleanNotes();
-        initNotes(ref.read(focusedServerProvider)!);
         connectStream(ref.read(focusedServerProvider)!);
+        initNotes(ref.read(focusedServerProvider)!);
       },
       child: Column(
         children: [
