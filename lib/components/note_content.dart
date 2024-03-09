@@ -7,6 +7,7 @@ import 'package:eatpencil/components/general/image_with_blurhash.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
 import 'package:eatpencil/components/general/simple_icon_button.dart';
 import 'package:eatpencil/components/general/video_player.dart';
+import 'package:eatpencil/components/mfm.dart';
 import 'package:eatpencil/components/reactions_viewer.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
@@ -16,7 +17,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:eatpencil/components/mfm.dart';
 
 class NoteContent extends ConsumerWidget {
   final Note note;
@@ -79,8 +79,7 @@ class NoteContent extends ConsumerWidget {
             gap: 10,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if ((depth ?? 0) < 2)
-                Avatar(user: note.user),
+              if ((depth ?? 0) < 2) Avatar(user: note.user),
               Expanded(
                 child: ColumnWithGap(
                   crossAxisAlignment: CrossAxisAlignment.start,

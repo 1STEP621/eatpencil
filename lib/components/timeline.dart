@@ -30,9 +30,11 @@ class _TimelineState extends ConsumerState<Timeline> {
     setState(() {
       _isFetching = true;
     });
-    server.notes.localTimeline(
+    server.notes
+        .localTimeline(
       const NotesLocalTimelineRequest(limit: 50),
-    ).then((initialNotes) {
+    )
+        .then((initialNotes) {
       _controller.addAll(initialNotes.toList());
       setState(() {
         _isFetching = false;

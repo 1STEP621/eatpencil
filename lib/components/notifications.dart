@@ -1,11 +1,11 @@
+import 'package:eatpencil/components/general/animated_list_with_controller.dart';
+import 'package:eatpencil/components/general/loading_circle.dart';
+import 'package:eatpencil/components/notification.dart';
+import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/providers.dart';
 import 'package:gap/gap.dart';
-import 'package:eatpencil/components/general/loading_circle.dart';
-import 'package:eatpencil/components/general/animated_list_with_controller.dart';
 import 'package:misskey_dart/misskey_dart.dart';
-import 'package:eatpencil/components/notification.dart';
 
 class Notifications extends ConsumerStatefulWidget {
   const Notifications({super.key});
@@ -30,9 +30,11 @@ class _NotificationsState extends ConsumerState<Notifications> {
     setState(() {
       _isFetching = true;
     });
-    server.i.notifications(
+    server.i
+        .notifications(
       const INotificationsRequest(limit: 50),
-    ).then((initialNotifications) {
+    )
+        .then((initialNotifications) {
       _controller.addAll(initialNotifications.toList());
       setState(() {
         _isFetching = false;

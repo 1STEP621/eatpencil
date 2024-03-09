@@ -1,14 +1,14 @@
+import 'package:eatpencil/components/general/bottom_buttons_bar.dart';
+import 'package:eatpencil/components/general/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/main_app_bar.dart';
+import 'package:eatpencil/components/note_form.dart';
 import 'package:eatpencil/components/timeline.dart';
 import 'package:eatpencil/providers.dart';
+import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
-import 'package:eatpencil/components/general/bottom_sheet_menu.dart';
-import 'package:eatpencil/components/general/bottom_buttons_bar.dart';
-import 'package:eatpencil/components/note_form.dart';
-import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});

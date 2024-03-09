@@ -1,6 +1,6 @@
+import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 
 class ImageWithBlurHash extends CustomCachedNetworkImage {
   ImageWithBlurHash({

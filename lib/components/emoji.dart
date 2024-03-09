@@ -9,7 +9,8 @@ class EmojiImage extends ConsumerWidget {
   final Map<String, String> additionalEmojis;
   final double height;
 
-  const EmojiImage({super.key, required this.shortcode, this.serverUrl = ".", this.additionalEmojis = const {}, this.height = 22});
+  const EmojiImage(
+      {super.key, required this.shortcode, this.serverUrl = ".", this.additionalEmojis = const {}, this.height = 22});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

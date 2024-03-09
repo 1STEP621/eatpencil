@@ -34,6 +34,6 @@ class CustomCachedNetworkImage extends CachedNetworkImage {
     super.errorListener,
     super.imageRenderMethodForWeb,
   }) : super(
-    placeholder: placeholder ?? (context, url) => const SizedBox.shrink(),
-  );
+          placeholder: placeholder ?? (context, url) => const SizedBox.shrink(),
+        );
 }
