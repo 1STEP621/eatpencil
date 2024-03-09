@@ -23,16 +23,14 @@ class EmojiImage extends ConsumerWidget {
         ? (ref.watch(emojisMapProvider).value?[shortcode]?.url.toString())
         : additionalEmojis["$shortcode@$serverUrl"];
 
-    if (emojiUrl != null) {
-      return CustomCachedNetworkImage(
-        imageUrl: emojiUrl.toString(),
-        height: height,
-      );
-    } else {
-      return Image.asset(
-        "assets/images/dummy.png",
-        height: height,
-      );
-    }
+    return emojiUrl == null
+        ? Image.asset(
+            "assets/images/dummy.png",
+            height: height,
+          )
+        : CustomCachedNetworkImage(
+            imageUrl: emojiUrl.toString(),
+            height: height,
+          );
   }
 }
