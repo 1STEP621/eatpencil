@@ -53,8 +53,8 @@ class _NotificationsState extends ConsumerState<Notifications> {
 
   @override
   void initState() {
-    initNotifications(ref.read(focusedServerProvider)!);
-    connectStream(ref.read(focusedServerProvider)!);
+    initNotifications(ref.read(focusedServerProvider));
+    connectStream(ref.read(focusedServerProvider));
     super.initState();
   }
 
@@ -62,10 +62,10 @@ class _NotificationsState extends ConsumerState<Notifications> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        cleanConnections(ref.read(focusedServerProvider)!);
+        cleanConnections(ref.read(focusedServerProvider));
         cleanNotifications();
-        initNotifications(ref.read(focusedServerProvider)!);
-        connectStream(ref.read(focusedServerProvider)!);
+        initNotifications(ref.read(focusedServerProvider));
+        connectStream(ref.read(focusedServerProvider));
       },
       child: Column(
         children: [

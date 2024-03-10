@@ -108,8 +108,8 @@ class _TimelineState extends ConsumerState<Timeline> {
 
   @override
   void initState() {
-    connectStream(ref.read(focusedServerProvider)!);
-    initNotes(ref.read(focusedServerProvider)!);
+    connectStream(ref.read(focusedServerProvider));
+    initNotes(ref.read(focusedServerProvider));
     super.initState();
   }
 
@@ -118,16 +118,16 @@ class _TimelineState extends ConsumerState<Timeline> {
     ref.listen(focusedServerProvider, (prevServer, server) {
       if (prevServer != null) cleanConnections(prevServer);
       cleanNotes();
-      connectStream(server!);
+      connectStream(server);
       initNotes(server);
     });
 
     return RefreshIndicator(
       onRefresh: () async {
-        cleanConnections(ref.read(focusedServerProvider)!);
+        cleanConnections(ref.read(focusedServerProvider));
         cleanNotes();
-        connectStream(ref.read(focusedServerProvider)!);
-        initNotes(ref.read(focusedServerProvider)!);
+        connectStream(ref.read(focusedServerProvider));
+        initNotes(ref.read(focusedServerProvider));
       },
       child: Column(
         children: [
@@ -142,7 +142,7 @@ class _TimelineState extends ConsumerState<Timeline> {
               itemBuilder: (context, note, animation) {
                 return NoteCard(
                   note: note,
-                  server: ref.read(focusedServerProvider)!,
+                  server: ref.read(focusedServerProvider),
                 );
               },
             ),

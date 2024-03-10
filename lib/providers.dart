@@ -66,14 +66,14 @@ dynamic toMap(Misskey server) {
   };
 }
 
-final focusedServerProvider = StateProvider((ref) => ref.watch(serversProvider).value?.firstOrNull);
+final focusedServerProvider = StateProvider((ref) => ref.watch(serversProvider).value!.first);
 
 final metaProvider = FutureProvider<MetaResponse>((ref) async {
-  return ref.watch(focusedServerProvider)!.meta();
+  return ref.watch(focusedServerProvider).meta();
 });
 
 final emojisProvider = FutureProvider<EmojisResponse>((ref) async {
-  return ref.watch(focusedServerProvider)!.emojis();
+  return ref.watch(focusedServerProvider).emojis();
 });
 
 final emojisMapProvider = FutureProvider<Map<String, Emoji>?>((ref) async {
@@ -83,5 +83,5 @@ final emojisMapProvider = FutureProvider<Map<String, Emoji>?>((ref) async {
 });
 
 final iProvider = FutureProvider<MeDetailed>((ref) async {
-  return ref.watch(focusedServerProvider)!.i.i();
+  return ref.watch(focusedServerProvider).i.i();
 });
