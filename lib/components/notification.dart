@@ -125,7 +125,7 @@ class NotificationCard extends ConsumerWidget {
       _ => throw UnimplementedError(),
     };
     final headerContent = CustomSimpleMfm(
-      originUser?.name ??
+      originUser?.name ?? originUser?.username ??
           switch (notification.type) {
             NotificationType.achievementEarned => "実績を解除しました",
             // TODO: https://github.com/shiosyakeyakini-info/misskey_dart/pull/47がマージされ次第修正

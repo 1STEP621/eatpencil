@@ -60,7 +60,7 @@ class NoteContent extends ConsumerWidget {
                   ),
                   Expanded(
                     child: CustomSimpleMfm(
-                      "${note.user.name}がリノート",
+                      "${note.user.name ?? note.user.username}がリノート",
                       overrideEmojis: note.emojis,
                       style: TextStyle(
                         color: theme(ref).renote,
@@ -96,7 +96,7 @@ class NoteContent extends ConsumerWidget {
                             children: [
                               Flexible(
                                 child: CustomSimpleMfm(
-                                  note.user.name ?? "",
+                                  note.user.name ?? note.user.username,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     overflow: TextOverflow.ellipsis,
