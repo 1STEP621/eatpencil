@@ -38,22 +38,27 @@ class BottomSheetMenu extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           for (final entry in entries)
-            ListTile(
-              title: Text(entry.title),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                child: ListTile(
+                  title: Text(entry.title),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  leading: entry.icon == null
+                      ? null
+                      : Icon(
+                          entry.icon,
+                          color: theme(ref).fg,
+                        ),
+                  onTap: () {
+                    entry.onPressed();
+                    context.pop();
+                  },
+                ),
               ),
-              leading: entry.icon == null
-                  ? null
-                  : Icon(
-                      entry.icon,
-                      color: theme(ref).fg,
-                    ),
-              onTap: () {
-                entry.onPressed();
-                context.pop();
-              },
-            ),
+            )
         ],
       ),
     );
