@@ -40,7 +40,7 @@ class ReactionsViewer extends ConsumerWidget {
                   EmojiImage(
                     emoji: reaction.key,
                     additionalEmojis: note.reactionEmojis,
-                    size: 16,
+                    size: 18,
                   ),
                   Text(
                     reaction.value.toString(),
