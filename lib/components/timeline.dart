@@ -142,7 +142,6 @@ class _TimelineState extends ConsumerState<Timeline> {
               itemBuilder: (context, note, animation) {
                 return NoteCard(
                   note: note,
-                  server: ref.read(focusedServerProvider),
                 );
               },
             ),

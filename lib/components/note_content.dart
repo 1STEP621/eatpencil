@@ -20,13 +20,11 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class NoteContent extends ConsumerWidget {
   final Note note;
-  final Misskey server;
   final int? depth;
 
   const NoteContent({
     super.key,
     required this.note,
-    required this.server,
     this.depth,
   });
 
@@ -72,7 +70,6 @@ class NoteContent extends ConsumerWidget {
               ),
               NoteContent(
                 note: note.renote!,
-                server: server,
               ),
             ],
           )
@@ -197,7 +194,6 @@ class NoteContent extends ConsumerWidget {
                             borderRadius: const BorderRadius.all(Radius.circular(10)),
                             child: NoteContent(
                               note: note.renote!,
-                              server: server,
                               depth: (depth ?? 0) + 1,
                             ),
                           ),
@@ -207,12 +203,12 @@ class NoteContent extends ConsumerWidget {
                       ReactionsViewer(
                         note: note,
                         onReactionTap: (reaction) {
-                          server.notes.reactions.create(
-                            NotesReactionsCreateRequest(
-                              noteId: note.id,
-                              reaction: reaction,
-                            ),
-                          );
+                          ref.watch(focusedServerProvider).notes.reactions.create(
+                                NotesReactionsCreateRequest(
+                                  noteId: note.id,
+                                  reaction: reaction,
+                                ),
+                              );
                         },
                       ),
                     if ((depth ?? 0) < 1)
@@ -237,11 +233,11 @@ class NoteContent extends ConsumerWidget {
                                         title: "リノート",
                                         icon: TablerIcons.repeat,
                                         onPressed: () {
-                                          server.notes.create(
-                                            NotesCreateRequest(
-                                              renoteId: note.id,
-                                            ),
-                                          );
+                                          ref.watch(focusedServerProvider).notes.create(
+                                                NotesCreateRequest(
+                                                  renoteId: note.id,
+                                                ),
+                                              );
                                         },
                                       ),
                                       BottomSheetMenuEntry(
@@ -292,7 +288,9 @@ class NoteContent extends ConsumerWidget {
                                         icon: TablerIcons.link,
                                         onPressed: () {
                                           Clipboard.setData(
-                                            ClipboardData(text: "https://${server.host}/notes/${note.id}"),
+                                            ClipboardData(
+                                              text: "https://${ref.watch(focusedServerProvider).host}/notes/${note.id}",
+                                            ),
                                           );
                                         },
                                       ),

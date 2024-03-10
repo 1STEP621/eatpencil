@@ -6,12 +6,10 @@ import 'package:misskey_dart/misskey_dart.dart';
 
 class NoteCard extends ConsumerWidget {
   final Note note;
-  final Misskey server;
 
   const NoteCard({
     super.key,
     required this.note,
-    required this.server,
   });
 
   @override
@@ -33,7 +31,6 @@ class NoteCard extends ConsumerWidget {
         padding: const EdgeInsets.all(12.5),
         child: NoteContent(
           note: note,
-          server: server,
         ),
       ),
     );
