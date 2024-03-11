@@ -31,7 +31,13 @@ class ReactionsViewer extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: note.myReaction == reaction.key ? theme(ref).accentedBg : theme(ref).buttonBg,
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
-                border: note.myReaction == reaction.key ? Border.all(color: theme(ref).accent, width: 1) : null,
+                border: note.myReaction == reaction.key
+                    ? Border.all(
+                        color: theme(ref).accent,
+                        width: 1,
+                        strokeAlign: BorderSide.strokeAlignInside,
+                      )
+                    : null,
               ),
               child: RowWithGap(
                 gap: 5,
