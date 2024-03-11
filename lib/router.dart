@@ -1,9 +1,9 @@
-import 'package:eatpencil/views/auth.dart';
-import 'package:eatpencil/views/home.dart';
-import 'package:eatpencil/views/loading.dart';
-import 'package:eatpencil/views/notifications.dart';
-import 'package:eatpencil/views/search.dart';
-import 'package:eatpencil/views/welcome.dart';
+import 'package:eatpencil/pages/auth.dart';
+import 'package:eatpencil/pages/home.dart';
+import 'package:eatpencil/pages/loading.dart';
+import 'package:eatpencil/pages/notifications.dart';
+import 'package:eatpencil/pages/search.dart';
+import 'package:eatpencil/pages/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
