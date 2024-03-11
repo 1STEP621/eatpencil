@@ -76,7 +76,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 width: 200,
                 height: 300,
                 child: Opacity(
-                  opacity: 0.5,
+                  opacity: 0.8,
                   child: IgnorePointer(
                     child: AnimatedListWithController<INotificationsResponse>(
                       controller: _controller,
