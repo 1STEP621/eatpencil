@@ -43,7 +43,7 @@ class CustomNormalMfm extends ConsumerWidget {
             scrollDirection: Axis.horizontal,
             child: HighlightView(
               code,
-              language: lang,
+              language: lang ?? "plaintext",
               theme: atomOneDarkTheme,
               padding: const EdgeInsets.all(10),
             ),

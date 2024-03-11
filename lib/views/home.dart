@@ -1,20 +1,63 @@
+import 'package:eatpencil/components/general/animated_list_with_controller.dart';
 import 'package:eatpencil/components/general/bottom_buttons_bar.dart';
 import 'package:eatpencil/components/general/bottom_sheet_menu.dart';
 import 'package:eatpencil/components/main_app_bar.dart';
 import 'package:eatpencil/components/note_form.dart';
+import 'package:eatpencil/components/notification.dart';
 import 'package:eatpencil/components/timeline.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/utils/show_modal_bottom_sheet_with_blur.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:misskey_dart/misskey_dart.dart' hide Clip;
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  final _controller = AnimatedListController<INotificationsResponse>();
+
+  void cleanConnection(Misskey server) {
+    server.streamingService.close();
+  }
+
+  void connectStream(Misskey server) {
+    server.startStreaming();
+    server.mainStream(
+      onNotification: (INotificationsResponse newNotification) {
+        _controller.add(newNotification);
+        Future.delayed(const Duration(seconds: 2), () {
+          _controller.removeAt(_controller.contents().length - 1);
+        });
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    connectStream(ref.read(focusedServerProvider));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    cleanConnection(ref.read(focusedServerProvider));
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(focusedServerProvider, (prevServer, server) {
+      if (prevServer != null) cleanConnection(prevServer);
+      connectStream(server);
+    });
+
     return Scaffold(
       appBar: const MainAppBar(),
       body: Padding(
@@ -22,14 +65,31 @@ class HomePage extends ConsumerWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: theme(ref).divider,
-              width: 1,
-              strokeAlign: BorderSide.strokeAlignOutside,
-            ),
           ),
           clipBehavior: Clip.hardEdge,
-          child: const Timeline(),
+          child: Stack(
+            children: [
+              const Timeline(),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                width: 200,
+                height: 300,
+                child: Opacity(
+                  opacity: 0.5,
+                  child: IgnorePointer(
+                    child: AnimatedListWithController<INotificationsResponse>(
+                      controller: _controller,
+                      reverse: true,
+                      itemBuilder: (context, notification, animation) {
+                        return NotificationCard(notification: notification);
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomButtonsBar(

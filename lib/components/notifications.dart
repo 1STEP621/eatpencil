@@ -46,7 +46,7 @@ class _NotificationsState extends ConsumerState<Notifications> {
     server.streamingService.startStreaming();
     server.mainStream(
       onNotification: (INotificationsResponse newNotification) {
-        _controller.addAll([newNotification]);
+        _controller.add(newNotification);
       },
     );
   }

@@ -94,6 +94,7 @@ class NoteContent extends ConsumerWidget {
                               Flexible(
                                 child: CustomSimpleMfm(
                                   note.user.name ?? note.user.username,
+                                  overrideEmojis: note.user.emojis,
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     overflow: TextOverflow.ellipsis,

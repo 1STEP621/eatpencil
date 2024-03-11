@@ -51,11 +51,12 @@ class _TimelineState extends ConsumerState<Timeline> {
     _stream = server.hybridTimelineStream(
       parameter: const HybridTimelineParameter(),
       onNoteReceived: (newNote) {
-        _controller.addAll([newNote]);
+        _controller.add(newNote);
         _stream?.subNote(newNote.id);
       },
       onReacted: (id, reaction) {
-        final note = _controller.contents().firstWhere((note) => note.id == id);
+        final index = _controller.contents().indexWhere((note) => note.id == id);
+        final note = _controller.contents()[index];
         Map<String, int> reactions = {...note.reactions};
         reactions.update(reaction.reaction, (count) => count + 1, ifAbsent: () => 1);
         Map<String, String> reactionEmojis = {...note.reactionEmojis};
@@ -66,8 +67,8 @@ class _TimelineState extends ConsumerState<Timeline> {
         if (reaction.userId == ref.watch(iProvider).value?.id) {
           myReaction = reaction.reaction;
         }
-        _controller.update(
-          note,
+        _controller.updateAt(
+          index,
           note.copyWith(
             reactions: reactions,
             reactionEmojis: reactionEmojis,
@@ -76,7 +77,8 @@ class _TimelineState extends ConsumerState<Timeline> {
         );
       },
       onUnreacted: (id, reaction) {
-        final note = _controller.contents().firstWhere((note) => note.id == id);
+        final index = _controller.contents().indexWhere((note) => note.id == id);
+        final note = _controller.contents()[index];
         Map<String, int> reactions = {...note.reactions};
         reactions.update(reaction.reaction, (count) => count - 1, ifAbsent: () => 0);
         reactions.removeWhere((_, count) => count == 0);
@@ -89,8 +91,8 @@ class _TimelineState extends ConsumerState<Timeline> {
         if (reaction.userId == ref.watch(iProvider).value?.id) {
           myReaction = null;
         }
-        _controller.update(
-          note,
+        _controller.updateAt(
+          index,
           note.copyWith(
             reactions: reactions,
             reactionEmojis: reactionEmojis,
@@ -99,8 +101,9 @@ class _TimelineState extends ConsumerState<Timeline> {
         );
       },
       onDeleted: (id, _) {
-        final note = _controller.contents().firstWhere((note) => note.id == id);
-        _controller.remove(note);
+        final index = _controller.contents().indexWhere((note) => note.id == id);
+        final note = _controller.contents()[index];
+        _controller.removeAt(index);
         _stream?.unsubNote(note.id);
       },
     );
@@ -111,6 +114,12 @@ class _TimelineState extends ConsumerState<Timeline> {
     connectStream(ref.read(focusedServerProvider));
     initNotes(ref.read(focusedServerProvider));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    cleanConnections(ref.read(focusedServerProvider));
+    super.dispose();
   }
 
   @override

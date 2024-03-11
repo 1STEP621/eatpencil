@@ -31,6 +31,10 @@ class CustomEmoji extends ConsumerWidget {
         : CustomCachedNetworkImage(
             imageUrl: emojiUrl.toString(),
             height: height,
+            errorWidget: (context, url, error) => Image.asset(
+              "assets/images/dummy.png",
+              height: height,
+            ),
           );
   }
 }
