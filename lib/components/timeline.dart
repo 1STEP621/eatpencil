@@ -3,7 +3,7 @@ import 'package:eatpencil/components/general/loading_circle.dart';
 import 'package:eatpencil/components/note.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 

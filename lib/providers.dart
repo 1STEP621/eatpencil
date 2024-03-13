@@ -1,7 +1,7 @@
 import 'package:eatpencil/consts.dart';
 import 'package:eatpencil/models/theme.dart';
 import 'package:eatpencil/utils/json_store.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 
 final themeProvider = StateNotifierProvider<ThemeNotifier, MkTheme>((ref) {
