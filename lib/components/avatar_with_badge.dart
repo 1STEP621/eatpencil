@@ -21,19 +21,21 @@ class AvatarWithBadge extends ConsumerWidget {
           bottom: -4,
           child: ClipOval(
             child: Container(
-                width: 26,
-                height: 26,
-                color: theme(ref).panel,
-                alignment: Alignment.center,
-                child: ClipOval(
-                  child: SizedBox(
-                      width: 22,
-                      height: 22,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: badge,
-                      )),
-                )),
+              width: 26,
+              height: 26,
+              color: theme(ref).panel,
+              alignment: Alignment.center,
+              child: ClipOval(
+                child: SizedBox(
+                  width: 22,
+                  height: 22,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: badge,
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ],
