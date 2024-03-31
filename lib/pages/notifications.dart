@@ -2,7 +2,7 @@ import 'package:eatpencil/components/main_app_bar.dart';
 import 'package:eatpencil/components/notifications.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NotificationsPage extends ConsumerWidget {
   const NotificationsPage({super.key});

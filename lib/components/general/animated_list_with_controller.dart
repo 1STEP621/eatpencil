@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:eatpencil/providers.dart';
 
 class AnimatedListController<T> {
@@ -104,10 +104,7 @@ class _AnimatedListWithControllerState<T> extends ConsumerState<AnimatedListWith
           ).animate(animation),
           child: Column(
             children: [
-              SizedBox(
-                key: ValueKey(_items[index]),
-                child: widget.itemBuilder(context, _items[index], animation),
-              ),
+              widget.itemBuilder(context, _items[index], animation),
               if (index != _items.length - 1)
                 Divider(
                   color: theme(ref).divider,

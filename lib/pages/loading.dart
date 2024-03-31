@@ -2,7 +2,7 @@ import 'package:eatpencil/components/general/loading_circle.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:eatpencil/router.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoadingPage extends ConsumerWidget {
   const LoadingPage({super.key});

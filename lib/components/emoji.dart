@@ -2,7 +2,7 @@ import 'package:eatpencil/components/custom_emoji.dart';
 import 'package:eatpencil/components/unicode_emoji.dart';
 import 'package:eatpencil/utils/get_part_from_reaction.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EmojiImage extends ConsumerWidget {
   final String emoji;

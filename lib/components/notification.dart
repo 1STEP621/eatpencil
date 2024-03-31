@@ -9,7 +9,7 @@ import 'package:eatpencil/utils/get_note_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
 import 'package:eatpencil/components/emoji.dart';
