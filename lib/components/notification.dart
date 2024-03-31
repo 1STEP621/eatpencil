@@ -31,15 +31,14 @@ class NotificationCard extends ConsumerWidget {
           size: 45,
           backgroundColor: eventOther,
         ),
-      // TODO: https://github.com/shiosyakeyakini-info/misskey_dart/pull/47がマージされ次第修正
-      NotificationType.app => notification.customIcon == null
+      NotificationType.app => notification.icon == null
           ? const IconWithBackground(
               icon: TablerIcons.apps,
               size: 45,
               backgroundColor: eventOther,
             )
           : CustomCachedNetworkImage(
-              imageUrl: notification.customIcon.toString(),
+              imageUrl: notification.icon.toString(),
             ),
       NotificationType.follow => AvatarWithBadge(
           user: originUser!,
@@ -128,8 +127,7 @@ class NotificationCard extends ConsumerWidget {
       originUser?.name ?? originUser?.username ??
           switch (notification.type) {
             NotificationType.achievementEarned => "実績を解除しました",
-            // TODO: https://github.com/shiosyakeyakini-info/misskey_dart/pull/47がマージされ次第修正
-            NotificationType.app => notification.customHeader ?? "連携アプリからの通知",
+            NotificationType.app => notification.header ?? "連携アプリからの通知",
             NotificationType.roleAssigned => "ロールにアサインされました",
             NotificationType.test => "テスト通知",
             _ => throw UnimplementedError(),
@@ -145,8 +143,7 @@ class NotificationCard extends ConsumerWidget {
       getNoteSummary(originNote)?.replaceAll("\n", " ") ??
           switch (notification.type) {
             NotificationType.achievementEarned => notification.achievement!,
-            // TODO: https://github.com/shiosyakeyakini-info/misskey_dart/pull/47がマージされ次第修正
-            NotificationType.app => notification.customBody ?? "連携アプリからの通知です",
+            NotificationType.app => notification.body ?? "連携アプリからの通知です",
             NotificationType.follow => "フォローされました",
             NotificationType.followRequestAccepted => "フォローリクエストが承認されました",
             NotificationType.receiveFollowRequest => "新しいフォロー申請があります",
