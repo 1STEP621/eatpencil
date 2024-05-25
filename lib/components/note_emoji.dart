@@ -1,7 +1,7 @@
+import 'package:eatpencil/components/general/custom_cached_network_image.dart';
+import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:eatpencil/providers.dart';
-import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 
 class NoteEmojiImage extends ConsumerWidget {
   final String emojiName;

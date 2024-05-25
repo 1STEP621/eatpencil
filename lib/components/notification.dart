@@ -1,4 +1,5 @@
 import 'package:eatpencil/components/avatar_with_badge.dart';
+import 'package:eatpencil/components/emoji.dart';
 import 'package:eatpencil/components/general/custom_cached_network_image.dart';
 import 'package:eatpencil/components/general/icon_with_background.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misskey_dart/misskey_dart.dart';
 import 'package:tabler_icons_for_flutter/tabler_icons_for_flutter.dart';
-import 'package:eatpencil/components/emoji.dart';
 
 class NotificationCard extends ConsumerWidget {
   final INotificationsResponse notification;
@@ -124,7 +124,8 @@ class NotificationCard extends ConsumerWidget {
       _ => throw UnimplementedError(),
     };
     final headerContent = CustomSimpleMfm(
-      originUser?.name ?? originUser?.username ??
+      originUser?.name ??
+          originUser?.username ??
           switch (notification.type) {
             NotificationType.achievementEarned => "実績を解除しました",
             NotificationType.app => notification.header ?? "連携アプリからの通知",

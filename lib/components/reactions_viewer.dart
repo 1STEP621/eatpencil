@@ -1,9 +1,9 @@
+import 'package:eatpencil/components/emoji.dart';
 import 'package:eatpencil/components/general/row_with_gap.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:misskey_dart/misskey_dart.dart';
-import 'package:eatpencil/components/emoji.dart';
 
 class ReactionsViewer extends ConsumerWidget {
   final Note note;

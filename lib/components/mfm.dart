@@ -1,3 +1,4 @@
+import 'package:eatpencil/components/note_emoji.dart';
 import 'package:eatpencil/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
@@ -5,7 +6,6 @@ import 'package:flutter_highlight/themes/atom-one-dark.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mfm/mfm.dart';
 import 'package:twemoji/twemoji.dart';
-import 'package:eatpencil/components/note_emoji.dart';
 
 class CustomNormalMfm extends ConsumerWidget {
   final String text;
@@ -101,4 +101,3 @@ class CustomSimpleMfm extends StatelessWidget {
     );
   }
 }
-
